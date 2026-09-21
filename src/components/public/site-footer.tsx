@@ -1,4 +1,5 @@
 import { Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/public/container";
@@ -24,8 +25,11 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
     <footer className="border-t border-border bg-secondary/30">
       <Container className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:py-20">
         <div className="lg:col-span-1">
-          <Link href="/" className="font-heading text-xl font-semibold tracking-tight">
-            Fast<span className="text-primary">Info</span>
+          <Link href="/" className="flex items-center gap-2.5">
+            <Image src="/brand/logo-mark-160.png" alt="" width={160} height={114} className="h-9 w-auto" />
+            <span className="font-heading text-xl font-semibold tracking-tight">
+              Fast<span className="text-primary">Info</span>
+            </span>
           </Link>
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">{settings.heroSubtitle}</p>
           <div className="mt-5 flex gap-3">

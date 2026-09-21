@@ -2,6 +2,7 @@
 
 import { cn } from "cn";
 import { Menu, Phone } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -42,8 +43,18 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-1 font-heading text-xl font-semibold tracking-tight">
-          Fast<span className="text-primary">Info</span>
+        <Link href="/" className="flex items-center gap-2.5">
+          <Image
+            src="/brand/logo-mark-160.png"
+            alt=""
+            width={160}
+            height={114}
+            priority
+            className="h-9 w-auto"
+          />
+          <span className="font-heading text-xl font-semibold tracking-tight">
+            Fast<span className="text-primary">Info</span>
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
@@ -83,8 +94,11 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px]">
-              <SheetTitle className="px-4 pt-4 font-heading text-lg">
-                Fast<span className="text-primary">Info</span>
+              <SheetTitle className="flex items-center gap-2 px-4 pt-4">
+                <Image src="/brand/logo-mark-160.png" alt="" width={160} height={114} className="h-8 w-auto" />
+                <span className="font-heading text-lg font-semibold">
+                  Fast<span className="text-primary">Info</span>
+                </span>
               </SheetTitle>
               <nav className="flex flex-col gap-1 p-4">
                 {NAV_LINKS.map((link) => (
