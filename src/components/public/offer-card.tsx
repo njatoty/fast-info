@@ -1,8 +1,12 @@
 import { SmartImage } from "@/components/media/smart-image";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
+import { t } from "@/lib/i18n/locales";
 import { formatCurrency, formatDateRange } from "@/lib/utils/format";
 import type { Offer } from "@/types/domain";
 
-export function OfferCard({ offer }: { offer: Offer }) {
+export async function OfferCard({ offer }: { offer: Offer }) {
+  const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
   const hasPrices = offer.originalPrice !== null && offer.promoPrice !== null;
   const discountPercent =
     hasPrices && offer.originalPrice
@@ -41,7 +45,7 @@ export function OfferCard({ offer }: { offer: Offer }) {
         ) : null}
         {offer.endsAt ? (
           <p className="mt-3 text-xs text-muted-foreground/70">
-            Valable jusqu&apos;au {formatDateRange(offer.endsAt)}
+            {t(dict.offers.validUntilTemplate, { date: formatDateRange(offer.endsAt, null, locale) })}
           </p>
         ) : null}
       </div>

@@ -15,13 +15,17 @@ import { getActiveOffers } from "@/lib/data/offers";
 import { getFeaturedProducts, getProductCategories } from "@/lib/data/products";
 import { getFeaturedServices } from "@/lib/data/services";
 import { getSiteSettings } from "@/lib/data/settings";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-  title: "Accueil",
-  description: siteConfig.description,
-  alternates: { canonical: "/" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const dict = await getDictionary();
+  return {
+    title: dict.meta.home.title,
+    description: siteConfig.description,
+    alternates: { canonical: "/" },
+  };
+}
 
 export default async function HomePage() {
   const [settings, categories, featuredProducts, services, offers, galleryItems, events] =

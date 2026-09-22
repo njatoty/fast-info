@@ -4,16 +4,20 @@ import { Eyebrow } from "@/components/public/eyebrow";
 import { Reveal } from "@/components/public/reveal";
 import { Section } from "@/components/public/section";
 import { Button } from "@/components/ui/button";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { t } from "@/lib/i18n/locales";
 import type { SiteSettings } from "@/types/domain";
 
-export function LocationStrip({ settings }: { settings: SiteSettings }) {
+export async function LocationStrip({ settings }: { settings: SiteSettings }) {
+  const dict = await getDictionary();
+
   return (
     <Section tone="muted">
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal>
-          <Eyebrow>Nous trouver</Eyebrow>
+          <Eyebrow>{dict.home.location.eyebrow}</Eyebrow>
           <h2 className="font-heading text-3xl font-medium tracking-tight sm:text-4xl">
-            Retrouvez-nous à {settings.city.split(",")[0]}
+            {t(dict.home.location.titleTemplate, { city: settings.city.split(",")[0] })}
           </h2>
           <div className="mt-8 space-y-5">
             <div className="flex items-start gap-3">
@@ -39,7 +43,7 @@ export function LocationStrip({ settings }: { settings: SiteSettings }) {
             <Button variant="outline" className="mt-8 gap-2" asChild>
               <a href={settings.mapUrl} target="_blank" rel="noopener noreferrer">
                 <Navigation className="size-4" />
-                Obtenir l&apos;itinéraire
+                {dict.home.location.directions}
               </a>
             </Button>
           ) : null}

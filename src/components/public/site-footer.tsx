@@ -4,15 +4,8 @@ import Link from "next/link";
 
 import { Container } from "@/components/public/container";
 import { FacebookIcon, InstagramIcon, TikTokIcon } from "@/components/icons/social-icons";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { SiteSettings } from "@/types/domain";
-
-const EXPLORE_LINKS = [
-  { href: "/produits", label: "Produits" },
-  { href: "/services", label: "Services" },
-  { href: "/offres", label: "Offres" },
-  { href: "/galerie", label: "Galerie" },
-  { href: "/evenements", label: "Événements" },
-];
 
 const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   facebook: FacebookIcon,
@@ -20,7 +13,17 @@ const SOCIAL_ICONS: Record<string, React.ComponentType<{ className?: string }>> 
   tiktok: TikTokIcon,
 };
 
-export function SiteFooter({ settings }: { settings: SiteSettings }) {
+export async function SiteFooter({ settings }: { settings: SiteSettings }) {
+  const dict = await getDictionary();
+
+  const EXPLORE_LINKS = [
+    { href: "/produits", label: dict.nav.products },
+    { href: "/services", label: dict.nav.services },
+    { href: "/offres", label: dict.nav.offers },
+    { href: "/galerie", label: dict.nav.gallery },
+    { href: "/evenements", label: dict.nav.events },
+  ];
+
   return (
     <footer className="border-t border-border bg-secondary/30">
       <Container className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:py-20">
@@ -53,7 +56,7 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
         </div>
 
         <div>
-          <p className="text-sm font-medium tracking-wide">Explorer</p>
+          <p className="text-sm font-medium tracking-wide">{dict.footer.explore}</p>
           <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
             {EXPLORE_LINKS.map((link) => (
               <li key={link.href}>
@@ -66,23 +69,23 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
         </div>
 
         <div>
-          <p className="text-sm font-medium tracking-wide">Entreprise</p>
+          <p className="text-sm font-medium tracking-wide">{dict.footer.company}</p>
           <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
             <li>
               <Link href="/a-propos" className="transition-colors hover:text-foreground">
-                À propos
+                {dict.nav.about}
               </Link>
             </li>
             <li>
               <Link href="/contact" className="transition-colors hover:text-foreground">
-                Contact
+                {dict.nav.contact}
               </Link>
             </li>
           </ul>
         </div>
 
         <div>
-          <p className="text-sm font-medium tracking-wide">Contact</p>
+          <p className="text-sm font-medium tracking-wide">{dict.footer.contact}</p>
           <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
             <li className="flex items-start gap-2.5">
               <Phone className="mt-0.5 size-4 shrink-0" />
@@ -110,7 +113,9 @@ export function SiteFooter({ settings }: { settings: SiteSettings }) {
 
       <div className="border-t border-border py-6">
         <Container className="flex flex-col items-center justify-between gap-2 text-xs text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} FastInfo. Tous droits réservés.</p>
+          <p>
+            © {new Date().getFullYear()} FastInfo. {dict.footer.rights}
+          </p>
           <p>Antananarivo, Madagascar</p>
         </Container>
       </div>

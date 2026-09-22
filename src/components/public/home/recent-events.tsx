@@ -5,19 +5,21 @@ import { Reveal } from "@/components/public/reveal";
 import { Section } from "@/components/public/section";
 import { SectionHeading } from "@/components/public/section-heading";
 import { Button } from "@/components/ui/button";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { EventProject } from "@/types/domain";
 
-export function RecentEvents({ events }: { events: EventProject[] }) {
+export async function RecentEvents({ events }: { events: EventProject[] }) {
   if (events.length === 0) return null;
+  const dict = await getDictionary();
 
   return (
     <Section>
       <SectionHeading
-        eyebrow="Événements récents"
-        title="Nos derniers projets photo"
+        eyebrow={dict.home.events.eyebrow}
+        title={dict.home.events.title}
         action={
           <Button variant="outline" asChild>
-            <Link href="/evenements">Voir tous les événements</Link>
+            <Link href="/evenements">{dict.home.events.cta}</Link>
           </Button>
         }
       />

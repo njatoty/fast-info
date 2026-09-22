@@ -13,6 +13,8 @@ import { SectionHeading } from "@/components/public/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { getProductBySlug, getRelatedProducts } from "@/lib/data/products";
 import { getSiteSettings } from "@/lib/data/settings";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { t } from "@/lib/i18n/locales";
 import { siteConfig } from "@/lib/site-config";
 import { formatCurrency } from "@/lib/utils/format";
 import type { AvailabilityStatus } from "@/types/database";
@@ -49,9 +51,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const [related, settings] = await Promise.all([
+  const [related, settings, dict] = await Promise.all([
     getRelatedProducts(product),
     getSiteSettings(),
+    getDictionary(),
   ]);
 
   const productJsonLd = {
@@ -79,7 +82,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <Container>
         <nav className="mb-8 flex items-center gap-1.5 text-sm text-muted-foreground">
           <Link href="/produits" className="hover:text-foreground">
-            Produits
+            {dict.products.detail.breadcrumb}
           </Link>
           {product.category ? (
             <>
@@ -127,7 +130,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <InquiryActions
                 phone={settings.phone}
                 whatsapp={settings.whatsapp}
-                message={`Bonjour, je suis intéressé(e) par : ${product.name}.`}
+                message={t(dict.products.detail.inquiryMessageTemplate, { name: product.name })}
                 contactHref={`/contact?sujet=${encodeURIComponent(product.name)}`}
               />
             </div>
@@ -137,7 +140,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
       {related.length > 0 ? (
         <Section>
-          <SectionHeading eyebrow="À découvrir aussi" title="Produits similaires" />
+          <SectionHeading
+            eyebrow={dict.products.detail.relatedEyebrow}
+            title={dict.products.detail.relatedTitle}
+          />
           <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
             {related.map((item) => (
               <ProductCard key={item.id} product={item} />

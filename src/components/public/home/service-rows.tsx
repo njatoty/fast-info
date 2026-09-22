@@ -6,17 +6,19 @@ import { Section } from "@/components/public/section";
 import { SectionHeading } from "@/components/public/section-heading";
 import { SmartImage } from "@/components/media/smart-image";
 import { Button } from "@/components/ui/button";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { Service } from "@/types/domain";
 
-export function ServiceRows({ services }: { services: Service[] }) {
+export async function ServiceRows({ services }: { services: Service[] }) {
   if (services.length === 0) return null;
+  const dict = await getDictionary();
 
   return (
     <Section tone="muted">
       <SectionHeading
-        eyebrow="Services"
-        title="Des services pensés pour votre quotidien"
-        description="De l'impression à la photographie, une équipe FastInfo dédiée à chaque besoin."
+        eyebrow={dict.home.services.eyebrow}
+        title={dict.home.services.title}
+        description={dict.home.services.description}
       />
 
       <div className="mt-12 flex flex-col gap-16 lg:gap-20">
@@ -43,7 +45,7 @@ export function ServiceRows({ services }: { services: Service[] }) {
               <p className="mt-4 max-w-md text-muted-foreground">{service.description}</p>
               <Button variant="link" asChild className="mt-4 gap-1.5 px-0">
                 <Link href={`/services/${service.slug}`}>
-                  En savoir plus
+                  {dict.home.services.cta}
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>

@@ -1,12 +1,7 @@
 import { cn } from "cn";
 
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { AvailabilityStatus } from "@/types/database";
-
-const LABELS: Record<AvailabilityStatus, string> = {
-  in_stock: "En stock",
-  out_of_stock: "Rupture de stock",
-  on_order: "Sur commande",
-};
 
 const DOT_CLASSES: Record<AvailabilityStatus, string> = {
   in_stock: "bg-emerald-500",
@@ -14,13 +9,15 @@ const DOT_CLASSES: Record<AvailabilityStatus, string> = {
   on_order: "bg-amber-500",
 };
 
-export function AvailabilityBadge({
+export async function AvailabilityBadge({
   availability,
   className,
 }: {
   availability: AvailabilityStatus;
   className?: string;
 }) {
+  const dict = await getDictionary();
+
   return (
     <span
       className={cn(
@@ -29,7 +26,7 @@ export function AvailabilityBadge({
       )}
     >
       <span className={cn("size-1.5 rounded-full", DOT_CLASSES[availability])} />
-      {LABELS[availability]}
+      {dict.products.availability[availability]}
     </span>
   );
 }

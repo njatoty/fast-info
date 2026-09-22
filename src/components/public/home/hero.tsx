@@ -7,17 +7,18 @@ import { Reveal } from "@/components/public/reveal";
 import { SmartImage } from "@/components/media/smart-image";
 import { Button } from "@/components/ui/button";
 import { demoImage } from "@/lib/demo/images";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { SiteSettings } from "@/types/domain";
 
-export function Hero({ settings }: { settings: SiteSettings }) {
+export async function Hero({ settings }: { settings: SiteSettings }) {
+  const dict = await getDictionary();
+
   return (
     <section className="relative overflow-hidden pt-8 pb-16 sm:pt-14 sm:pb-24 lg:pt-20 lg:pb-32">
       <Container className="grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-5">
           <Reveal>
-            <Eyebrow className="mb-5">
-              Antananarivo · Téléphonie, informatique &amp; photographie
-            </Eyebrow>
+            <Eyebrow className="mb-5">{dict.home.hero.eyebrow}</Eyebrow>
             <h1 className="text-balance font-heading text-[clamp(2.25rem,1.4rem+3.6vw,4rem)] leading-[1.02] font-medium tracking-tight">
               {settings.heroTitle}
             </h1>
@@ -27,14 +28,14 @@ export function Hero({ settings }: { settings: SiteSettings }) {
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Button size="lg" asChild className="gap-2">
                 <Link href="/produits">
-                  Découvrir les produits
+                  {dict.home.hero.ctaProducts}
                   <ArrowRight className="size-4" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="gap-2">
                 <Link href="/contact">
                   <MessageCircle className="size-4" />
-                  Nous contacter
+                  {dict.home.hero.ctaContact}
                 </Link>
               </Button>
             </div>
@@ -46,7 +47,7 @@ export function Hero({ settings }: { settings: SiteSettings }) {
             <div className="relative aspect-[6/5] w-full sm:aspect-[16/10] lg:aspect-[5/4]">
               <SmartImage
                 src={demoImage("techHeroCircuit", 1600, 1280)}
-                alt="Univers technologique FastInfo"
+                alt={dict.home.hero.imageAlt1}
                 aspectRatio={5 / 4}
                 sizes="(min-width: 1024px) 55vw, 100vw"
                 wrapperClassName="absolute inset-0 rounded-md"
@@ -55,7 +56,7 @@ export function Hero({ settings }: { settings: SiteSettings }) {
               <div className="absolute -bottom-6 -left-4 w-[45%] sm:-bottom-8 sm:-left-8 sm:w-[42%]">
                 <SmartImage
                   src={demoImage("cameraGear", 900, 1125)}
-                  alt="Matériel de photographie FastInfo"
+                  alt={dict.home.hero.imageAlt2}
                   aspectRatio={4 / 5}
                   sizes="(min-width: 1024px) 25vw, 45vw"
                   wrapperClassName="rounded-md ring-4 ring-background"

@@ -5,29 +5,29 @@ import { Eyebrow } from "@/components/public/eyebrow";
 import { Reveal } from "@/components/public/reveal";
 import { ServiceCard } from "@/components/public/service-card";
 import { getServices } from "@/lib/data/services";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "Photocopie, impression, saisie de documents et photographie d'événements — les services FastInfo à Antananarivo.",
-  alternates: { canonical: "/services" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const dict = await getDictionary();
+  return {
+    title: dict.meta.services.title,
+    description: dict.meta.services.description,
+    alternates: { canonical: "/services" },
+  };
+}
 
 export default async function ServicesPage() {
-  const services = await getServices();
+  const [services, dict] = await Promise.all([getServices(), getDictionary()]);
 
   return (
     <div className="pt-8 pb-20 sm:pt-12 sm:pb-28">
       <Container>
         <Reveal>
-          <Eyebrow>Services</Eyebrow>
+          <Eyebrow>{dict.services.list.eyebrow}</Eyebrow>
           <h1 className="font-heading text-[clamp(2rem,1.5rem+2vw,3rem)] leading-[1.05] font-medium tracking-tight">
-            Nos services
+            {dict.services.list.title}
           </h1>
-          <p className="mt-4 max-w-xl text-muted-foreground">
-            De l&apos;impression à la photographie d&apos;événements, une équipe dédiée à chaque
-            besoin.
-          </p>
+          <p className="mt-4 max-w-xl text-muted-foreground">{dict.services.list.description}</p>
         </Reveal>
 
         <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-3">

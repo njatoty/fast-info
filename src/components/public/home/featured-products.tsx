@@ -5,21 +5,23 @@ import { Reveal } from "@/components/public/reveal";
 import { Section } from "@/components/public/section";
 import { SectionHeading } from "@/components/public/section-heading";
 import { Button } from "@/components/ui/button";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { Product } from "@/types/domain";
 
-export function FeaturedProducts({ products }: { products: Product[] }) {
+export async function FeaturedProducts({ products }: { products: Product[] }) {
   if (products.length === 0) return null;
   const [first, ...rest] = products;
+  const dict = await getDictionary();
 
   return (
     <Section>
       <SectionHeading
-        eyebrow="Catalogue"
-        title="Produits en vedette"
-        description="Une sélection de téléphones, accessoires et équipements pensée pour l'usage quotidien."
+        eyebrow={dict.home.featuredProducts.eyebrow}
+        title={dict.home.featuredProducts.title}
+        description={dict.home.featuredProducts.description}
         action={
           <Button variant="outline" asChild>
-            <Link href="/produits">Voir tout le catalogue</Link>
+            <Link href="/produits">{dict.home.featuredProducts.cta}</Link>
           </Button>
         }
       />

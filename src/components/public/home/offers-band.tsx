@@ -5,20 +5,22 @@ import { Reveal } from "@/components/public/reveal";
 import { Section } from "@/components/public/section";
 import { SectionHeading } from "@/components/public/section-heading";
 import { Button } from "@/components/ui/button";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { Offer } from "@/types/domain";
 
-export function OffersBand({ offers }: { offers: Offer[] }) {
+export async function OffersBand({ offers }: { offers: Offer[] }) {
   if (offers.length === 0) return null;
+  const dict = await getDictionary();
 
   return (
     <Section tone="dark">
       <SectionHeading
-        eyebrow="Offres du moment"
-        title="Des promotions à ne pas manquer"
-        description="Des réductions limitées dans le temps sur une sélection de produits et services."
+        eyebrow={dict.home.offers.eyebrow}
+        title={dict.home.offers.title}
+        description={dict.home.offers.description}
         action={
           <Button variant="outline" asChild>
-            <Link href="/offres">Voir toutes les offres</Link>
+            <Link href="/offres">{dict.home.offers.cta}</Link>
           </Button>
         }
       />

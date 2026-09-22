@@ -7,24 +7,28 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { LanguageSwitcher } from "@/components/public/language-switcher";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/providers/theme-toggle";
+import { useDictionary } from "@/components/providers/locale-provider";
+import { t } from "@/lib/i18n/locales";
 import type { SiteSettings } from "@/types/domain";
-
-const NAV_LINKS = [
-  { href: "/", label: "Accueil" },
-  { href: "/produits", label: "Produits" },
-  { href: "/services", label: "Services" },
-  { href: "/offres", label: "Offres" },
-  { href: "/galerie", label: "Galerie" },
-  { href: "/evenements", label: "Événements" },
-  { href: "/a-propos", label: "À propos" },
-];
 
 export function SiteHeader({ settings }: { settings: SiteSettings }) {
   const pathname = usePathname();
+  const dict = useDictionary();
   const [scrolled, setScrolled] = useState(false);
+
+  const NAV_LINKS = [
+    { href: "/", label: dict.nav.home },
+    { href: "/produits", label: dict.nav.products },
+    { href: "/services", label: dict.nav.services },
+    { href: "/offres", label: dict.nav.offers },
+    { href: "/galerie", label: dict.nav.gallery },
+    { href: "/evenements", label: dict.nav.events },
+    { href: "/a-propos", label: dict.nav.about },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -82,14 +86,15 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
           >
             <Button size="sm" className="gap-2">
               <Phone className="size-3.5" />
-              Appeler
+              {dict.common.call}
             </Button>
           </a>
+          <LanguageSwitcher className="hidden sm:flex" />
           <ThemeToggle />
 
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Ouvrir le menu">
+              <Button variant="ghost" size="icon" className="lg:hidden" aria-label={dict.common.openMenu}>
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>
@@ -116,15 +121,16 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
                     href="/contact"
                     className="rounded-md px-3 py-2.5 text-base font-medium hover:bg-muted"
                   >
-                    Contact
+                    {dict.nav.contact}
                   </Link>
                 </SheetClose>
               </nav>
-              <div className="mt-auto p-4">
+              <div className="mt-auto flex flex-col gap-3 p-4">
+                <LanguageSwitcher className="self-start sm:hidden" />
                 <a href={`tel:${settings.phone.replace(/\s+/g, "")}`}>
                   <Button className="w-full gap-2">
                     <Phone className="size-4" />
-                    Appeler FastInfo
+                    {t(dict.common.callBrandTemplate, { brand: "FastInfo" })}
                   </Button>
                 </a>
               </div>

@@ -3,6 +3,7 @@
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
+import { useDictionary } from "@/components/providers/locale-provider";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,6 +16,7 @@ import { useMounted } from "@/hooks/use-mounted";
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const mounted = useMounted();
+  const dict = useDictionary();
 
   return (
     <DropdownMenu>
@@ -22,7 +24,7 @@ export function ThemeToggle() {
         <Button
           variant="ghost"
           size="icon"
-          aria-label="Changer le thème"
+          aria-label={dict.theme.toggleLabel}
           className="text-current hover:bg-foreground/5"
         >
           {mounted && theme === "dark" ? (
@@ -34,13 +36,13 @@ export function ThemeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>
-          <Sun className="size-4" /> Clair
+          <Sun className="size-4" /> {dict.theme.light}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
-          <Moon className="size-4" /> Sombre
+          <Moon className="size-4" /> {dict.theme.dark}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          <Monitor className="size-4" /> Système
+          <Monitor className="size-4" /> {dict.theme.system}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

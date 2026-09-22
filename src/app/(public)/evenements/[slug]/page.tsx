@@ -9,6 +9,8 @@ import { GalleryGrid } from "@/components/public/gallery-grid";
 import { Reveal } from "@/components/public/reveal";
 import { SmartImage } from "@/components/media/smart-image";
 import { getEventBySlug } from "@/lib/data/events";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { formatDateRange } from "@/lib/utils/format";
 
 interface EventPageProps {
@@ -37,6 +39,8 @@ export default async function EventPage({ params }: EventPageProps) {
   const event = await getEventBySlug(slug);
   if (!event) notFound();
 
+  const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
+
   return (
     <div className="pb-20 sm:pb-28">
       <div className="relative h-[45vh] min-h-80 w-full sm:h-[55vh]">
@@ -57,7 +61,7 @@ export default async function EventPage({ params }: EventPageProps) {
             {event.title}
           </h1>
           <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-white/80">
-            <span>{formatDateRange(event.date, event.endDate)}</span>
+            <span>{formatDateRange(event.date, event.endDate, locale)}</span>
             <span className="flex items-center gap-1.5">
               <MapPin className="size-4" />
               {event.location}
@@ -69,7 +73,7 @@ export default async function EventPage({ params }: EventPageProps) {
       <Container className="mt-4">
         <nav className="mb-8 text-sm text-muted-foreground">
           <Link href="/evenements" className="hover:text-foreground">
-            Événements
+            {dict.events.detail.breadcrumb}
           </Link>
         </nav>
 

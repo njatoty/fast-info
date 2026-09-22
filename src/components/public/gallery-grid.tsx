@@ -4,16 +4,16 @@ import { useState } from "react";
 
 import { ImageLightbox } from "@/components/public/image-lightbox";
 import { SmartImage } from "@/components/media/smart-image";
+import { useDictionary } from "@/components/providers/locale-provider";
 import type { MediaImage } from "@/types/domain";
 
 export function GalleryGrid({ images }: { images: MediaImage[] }) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const dict = useDictionary();
 
   if (images.length === 0) {
     return (
-      <p className="py-16 text-center text-sm text-muted-foreground">
-        Aucune photo dans cette catégorie pour le moment.
-      </p>
+      <p className="py-16 text-center text-sm text-muted-foreground">{dict.gallery.empty}</p>
     );
   }
 

@@ -8,6 +8,8 @@ import { Reveal } from "@/components/public/reveal";
 import { SmartImage } from "@/components/media/smart-image";
 import { getServiceBySlug } from "@/lib/data/services";
 import { getSiteSettings } from "@/lib/data/settings";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { t } from "@/lib/i18n/locales";
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -35,14 +37,14 @@ export default async function ServicePage({ params }: ServicePageProps) {
   const service = await getServiceBySlug(slug);
   if (!service) notFound();
 
-  const settings = await getSiteSettings();
+  const [settings, dict] = await Promise.all([getSiteSettings(), getDictionary()]);
 
   return (
     <div className="pt-8 pb-20 sm:pt-12 sm:pb-28">
       <Container size="narrow">
         <nav className="mb-8 text-sm text-muted-foreground">
           <Link href="/services" className="hover:text-foreground">
-            Services
+            {dict.services.detail.breadcrumb}
           </Link>
         </nav>
 
@@ -55,7 +57,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             <InquiryActions
               phone={settings.phone}
               whatsapp={settings.whatsapp}
-              message={`Bonjour, je souhaite en savoir plus sur : ${service.title}.`}
+              message={t(dict.services.detail.inquiryMessageTemplate, { title: service.title })}
               contactHref={`/contact?sujet=${encodeURIComponent(service.title)}`}
             />
           </div>

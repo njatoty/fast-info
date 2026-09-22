@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect } from "react";
 
+import { useDictionary } from "@/components/providers/locale-provider";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { MediaImage } from "@/types/domain";
 
@@ -14,6 +15,7 @@ interface ImageLightboxProps {
 }
 
 export function ImageLightbox({ images, index, onIndexChange }: ImageLightboxProps) {
+  const dict = useDictionary();
   const open = index !== null;
   const current = index !== null ? images[index] : null;
 
@@ -53,7 +55,7 @@ export function ImageLightbox({ images, index, onIndexChange }: ImageLightboxPro
         showCloseButton={false}
         className="flex h-[92vh] w-[96vw] max-w-6xl flex-col items-center justify-center border-none bg-transparent p-0 shadow-none sm:max-w-6xl"
       >
-        <DialogTitle className="sr-only">{current?.alt ?? "Galerie photo"}</DialogTitle>
+        <DialogTitle className="sr-only">{current?.alt ?? dict.lightbox.fallbackTitle}</DialogTitle>
         {current ? (
           <div className="relative flex size-full items-center justify-center">
             <Image
@@ -69,7 +71,7 @@ export function ImageLightbox({ images, index, onIndexChange }: ImageLightboxPro
             <button
               type="button"
               onClick={() => onIndexChange(null)}
-              aria-label="Fermer"
+              aria-label={dict.lightbox.close}
               className="absolute top-2 right-2 flex size-10 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/60"
             >
               <X className="size-5" />
@@ -80,7 +82,7 @@ export function ImageLightbox({ images, index, onIndexChange }: ImageLightboxPro
                 <button
                   type="button"
                   onClick={() => goTo(-1)}
-                  aria-label="Image précédente"
+                  aria-label={dict.lightbox.previous}
                   className="absolute top-1/2 left-2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/60"
                 >
                   <ChevronLeft className="size-5" />
@@ -88,7 +90,7 @@ export function ImageLightbox({ images, index, onIndexChange }: ImageLightboxPro
                 <button
                   type="button"
                   onClick={() => goTo(1)}
-                  aria-label="Image suivante"
+                  aria-label={dict.lightbox.next}
                   className="absolute top-1/2 right-2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/60"
                 >
                   <ChevronRight className="size-5" />

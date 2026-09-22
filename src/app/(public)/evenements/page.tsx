@@ -5,33 +5,34 @@ import { EventCard } from "@/components/public/event-card";
 import { Eyebrow } from "@/components/public/eyebrow";
 import { Reveal } from "@/components/public/reveal";
 import { getEvents } from "@/lib/data/events";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
-export const metadata: Metadata = {
-  title: "Événements",
-  description: "Mariages, anniversaires et événements d'entreprise couverts par FastInfo.",
-  alternates: { canonical: "/evenements" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const dict = await getDictionary();
+  return {
+    title: dict.meta.events.title,
+    description: dict.meta.events.description,
+    alternates: { canonical: "/evenements" },
+  };
+}
 
 export default async function EventsPage() {
-  const events = await getEvents();
+  const [events, dict] = await Promise.all([getEvents(), getDictionary()]);
 
   return (
     <div className="pt-8 pb-20 sm:pt-12 sm:pb-28">
       <Container>
         <Reveal>
-          <Eyebrow>Événements</Eyebrow>
+          <Eyebrow>{dict.events.list.eyebrow}</Eyebrow>
           <h1 className="font-heading text-[clamp(2rem,1.5rem+2vw,3rem)] leading-[1.05] font-medium tracking-tight">
-            Nos projets photo
+            {dict.events.list.title}
           </h1>
-          <p className="mt-4 max-w-xl text-muted-foreground">
-            Une sélection d&apos;événements couverts par notre équipe, du mariage au séminaire
-            d&apos;entreprise.
-          </p>
+          <p className="mt-4 max-w-xl text-muted-foreground">{dict.events.list.description}</p>
         </Reveal>
 
         {events.length === 0 ? (
           <p className="py-20 text-center text-sm text-muted-foreground">
-            Aucun événement publié pour le moment.
+            {dict.events.list.empty}
           </p>
         ) : (
           <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4">

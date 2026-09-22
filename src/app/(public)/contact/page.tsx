@@ -6,32 +6,37 @@ import { ContactForm } from "@/components/public/contact-form";
 import { Eyebrow } from "@/components/public/eyebrow";
 import { Reveal } from "@/components/public/reveal";
 import { getSiteSettings } from "@/lib/data/settings";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Contactez FastInfo par téléphone, WhatsApp, e-mail ou via le formulaire en ligne.",
-  alternates: { canonical: "/contact" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const dict = await getDictionary();
+  return {
+    title: dict.meta.contact.title,
+    description: dict.meta.contact.description,
+    alternates: { canonical: "/contact" },
+  };
+}
 
 export default async function ContactPage({
   searchParams,
 }: {
   searchParams: Promise<{ sujet?: string }>;
 }) {
-  const [settings, { sujet }] = await Promise.all([getSiteSettings(), searchParams]);
+  const [settings, { sujet }, dict] = await Promise.all([
+    getSiteSettings(),
+    searchParams,
+    getDictionary(),
+  ]);
 
   return (
     <div className="pt-8 pb-20 sm:pt-12 sm:pb-28">
       <Container>
         <Reveal className="max-w-2xl">
-          <Eyebrow>Contact</Eyebrow>
+          <Eyebrow>{dict.contact.eyebrow}</Eyebrow>
           <h1 className="font-heading text-[clamp(2rem,1.5rem+2vw,3rem)] leading-[1.05] font-medium tracking-tight">
-            Parlons de votre projet
+            {dict.contact.title}
           </h1>
-          <p className="mt-4 text-muted-foreground">
-            Une question sur un produit, un service ou un événement à couvrir ? Écrivez-nous, nous
-            vous répondons rapidement.
-          </p>
+          <p className="mt-4 text-muted-foreground">{dict.contact.description}</p>
         </Reveal>
 
         <div className="mt-14 grid gap-12 lg:grid-cols-5 lg:gap-16">
@@ -40,7 +45,7 @@ export default async function ContactPage({
               <li className="flex items-start gap-3">
                 <Phone className="mt-0.5 size-5 shrink-0 text-primary" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Téléphone</p>
+                  <p className="text-sm text-muted-foreground">{dict.contact.phoneLabel}</p>
                   <a
                     href={`tel:${settings.phone.replace(/\s+/g, "")}`}
                     className="font-medium hover:text-primary"
@@ -52,7 +57,7 @@ export default async function ContactPage({
               <li className="flex items-start gap-3">
                 <MessageCircle className="mt-0.5 size-5 shrink-0 text-primary" />
                 <div>
-                  <p className="text-sm text-muted-foreground">WhatsApp</p>
+                  <p className="text-sm text-muted-foreground">{dict.contact.whatsappLabel}</p>
                   <a
                     href={`https://wa.me/${settings.whatsapp.replace(/[^0-9]/g, "")}`}
                     target="_blank"
@@ -67,7 +72,7 @@ export default async function ContactPage({
                 <li className="flex items-start gap-3">
                   <Mail className="mt-0.5 size-5 shrink-0 text-primary" />
                   <div>
-                    <p className="text-sm text-muted-foreground">E-mail</p>
+                    <p className="text-sm text-muted-foreground">{dict.contact.emailLabel}</p>
                     <a href={`mailto:${settings.email}`} className="font-medium hover:text-primary">
                       {settings.email}
                     </a>
@@ -77,7 +82,7 @@ export default async function ContactPage({
               <li className="flex items-start gap-3">
                 <MapPin className="mt-0.5 size-5 shrink-0 text-primary" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Adresse</p>
+                  <p className="text-sm text-muted-foreground">{dict.contact.addressLabel}</p>
                   <p className="font-medium">
                     {settings.address}, {settings.city}
                   </p>
@@ -86,7 +91,7 @@ export default async function ContactPage({
               <li className="flex items-start gap-3">
                 <Clock className="mt-0.5 size-5 shrink-0 text-primary" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Horaires</p>
+                  <p className="text-sm text-muted-foreground">{dict.contact.hoursLabel}</p>
                   {settings.openingHours.map((hour) => (
                     <p key={hour.day} className="font-medium">
                       {hour.day} : {hour.hours}

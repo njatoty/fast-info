@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 
 import { Reveal } from "@/components/public/reveal";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { ProductCategory } from "@/types/domain";
 
 const ICONS: Record<string, LucideIcon> = {
@@ -22,8 +23,11 @@ const ICONS: Record<string, LucideIcon> = {
   informatique: Laptop,
 };
 
-export function CategoryStrip({ categories }: { categories: ProductCategory[] }) {
-  const extraLinks = [{ slug: "photographie", name: "Photographie", icon: Camera, href: "/services" }];
+export async function CategoryStrip({ categories }: { categories: ProductCategory[] }) {
+  const dict = await getDictionary();
+  const extraLinks = [
+    { slug: "photographie", name: dict.home.categories.photography, icon: Camera, href: "/services" },
+  ];
 
   return (
     <Reveal as="div" className="border-y border-border">

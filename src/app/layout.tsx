@@ -2,9 +2,12 @@ import type { Metadata } from "next";
 import { Chakra_Petch, Poppins } from "next/font/google";
 import type { ReactNode } from "react";
 
+import { LocaleProvider } from "@/components/providers/locale-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { getLocale } from "@/lib/i18n/get-locale";
 import { siteConfig } from "@/lib/site-config";
 
 import "./globals.css";
@@ -60,10 +63,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const [locale, dict] = await Promise.all([getLocale(), getDictionary()]);
+
   return (
     <html
-      lang="fr"
+      lang={locale}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
       className={`${poppins.variable} ${chakraPetch.variable}`}
@@ -75,10 +80,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           enableSystem
           disableTransitionOnChange
         >
-          <TooltipProvider delayDuration={200}>
-            {children}
-            <Toaster position="bottom-right" richColors closeButton />
-          </TooltipProvider>
+          <LocaleProvider locale={locale} dict={dict}>
+            <TooltipProvider delayDuration={200}>
+              {children}
+              <Toaster position="bottom-right" richColors closeButton />
+            </TooltipProvider>
+          </LocaleProvider>
         </ThemeProvider>
       </body>
     </html>
