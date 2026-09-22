@@ -1,10 +1,10 @@
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import type { Metadata } from "next";
 
-import { Container } from "@/components/public/container";
 import { ContactForm } from "@/components/public/contact-form";
-import { Eyebrow } from "@/components/public/eyebrow";
+import { PageHeader } from "@/components/public/page-header";
 import { Reveal } from "@/components/public/reveal";
+import { Section } from "@/components/public/section";
 import { getSiteSettings } from "@/lib/data/settings";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 
@@ -29,17 +29,14 @@ export default async function ContactPage({
   ]);
 
   return (
-    <div className="pt-8 pb-20 sm:pt-12 sm:pb-28">
-      <Container>
-        <Reveal className="max-w-2xl">
-          <Eyebrow>{dict.contact.eyebrow}</Eyebrow>
-          <h1 className="font-heading text-[clamp(2rem,1.5rem+2vw,3rem)] leading-[1.05] font-medium tracking-tight">
-            {dict.contact.title}
-          </h1>
-          <p className="mt-4 text-muted-foreground">{dict.contact.description}</p>
-        </Reveal>
-
-        <div className="mt-14 grid gap-12 lg:grid-cols-5 lg:gap-16">
+    <>
+      <PageHeader
+        eyebrow={dict.contact.eyebrow}
+        title={dict.contact.title}
+        description={dict.contact.description}
+      />
+      <Section edge="top">
+        <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
           <Reveal delay={80} className="lg:col-span-2">
             <ul className="space-y-6">
               <li className="flex items-start gap-3">
@@ -106,7 +103,7 @@ export default async function ContactPage({
             <ContactForm defaultSubject={sujet} />
           </Reveal>
         </div>
-      </Container>
-    </div>
+      </Section>
+    </>
   );
 }

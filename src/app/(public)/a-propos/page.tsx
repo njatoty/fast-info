@@ -26,16 +26,16 @@ export default async function AboutPage() {
   const [settings, dict] = await Promise.all([getSiteSettings(), getDictionary()]);
 
   return (
-    <div className="pb-20 sm:pb-28">
-      <Section className="pt-8 sm:pt-12">
+    <>
+      <Section tone="blue">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal>
             <Eyebrow>{dict.about.eyebrow}</Eyebrow>
-            <h1 className="font-heading text-[clamp(2rem,1.4rem+2.4vw,3rem)] leading-[1.05] font-medium tracking-tight">
+            <h1 className="font-heading text-[clamp(2.25rem,1.6rem+3vw,4rem)] leading-[1.02] font-semibold tracking-tight">
               {dict.about.title}
             </h1>
-            <p className="mt-6 text-muted-foreground">{settings.heroSubtitle}</p>
-            <p className="mt-4 text-muted-foreground">
+            <p className="mt-6 text-surface-blue-muted">{settings.heroSubtitle}</p>
+            <p className="mt-4 text-surface-blue-muted">
               {t(dict.about.intro, { city: settings.city.split(",")[0] })}
             </p>
           </Reveal>
@@ -44,14 +44,14 @@ export default async function AboutPage() {
               src={demoImage("techWorkspace", 1200, 1500)}
               alt={dict.about.imageAlt}
               aspectRatio={4 / 5}
-              wrapperClassName="rounded-md"
+              wrapperClassName="rounded-none"
               sizes="(min-width: 1024px) 45vw, 100vw"
             />
           </Reveal>
         </div>
       </Section>
 
-      <Section tone="muted">
+      <Section edge="top">
         <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           {dict.about.values.map((value, index) => {
             const Icon = VALUE_ICONS[index];
@@ -66,18 +66,18 @@ export default async function AboutPage() {
         </div>
       </Section>
 
-      <Section>
+      <Section tone="muted">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="font-heading text-2xl font-medium tracking-tight sm:text-3xl">
+          <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
             {dict.about.whyTitle}
           </h2>
           <p className="mt-4 text-muted-foreground">{dict.about.whyDescription}</p>
         </Reveal>
       </Section>
 
-      <Section tone="muted">
+      <Section>
         <BibleVerse />
       </Section>
-    </div>
+    </>
   );
 }

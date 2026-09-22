@@ -17,12 +17,12 @@ export async function EventCard({ event }: { event: EventProject }) {
         alt={event.coverImage?.alt ?? event.title}
         blurDataURL={event.coverImage?.blurDataURL}
         aspectRatio={4 / 5}
-        wrapperClassName="rounded-md"
+        wrapperClassName="rounded-none"
         sizes="(min-width: 1024px) 25vw, 50vw"
         className="transition-transform duration-500 group-hover:scale-[1.03]"
       />
       <div className="mt-3.5">
-        <Badge variant="secondary" className="font-normal">
+        <Badge variant="secondary" className="rounded-none font-normal">
           {event.category}
         </Badge>
         <h3 className="mt-2 font-heading text-lg font-medium">{event.title}</h3>

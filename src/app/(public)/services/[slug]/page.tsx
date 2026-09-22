@@ -49,7 +49,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         </nav>
 
         <Reveal>
-          <h1 className="font-heading text-[clamp(2rem,1.4rem+2.2vw,3rem)] leading-[1.05] font-medium tracking-tight">
+          <h1 className="font-heading text-[clamp(2rem,1.4rem+2.2vw,3rem)] leading-[1.05] font-semibold tracking-tight">
             {service.title}
           </h1>
           <p className="mt-5 text-lg text-muted-foreground">{service.description}</p>
@@ -77,7 +77,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 alt={image.alt}
                 blurDataURL={image.blurDataURL}
                 aspectRatio={index === 0 ? 21 / 9 : 4 / 3}
-                wrapperClassName="rounded-md"
+                wrapperClassName="rounded-none"
                 sizes={index === 0 ? "100vw" : "(min-width: 640px) 50vw, 100vw"}
               />
             </Reveal>

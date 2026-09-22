@@ -11,6 +11,8 @@ interface SectionHeadingProps {
   align?: "left" | "center";
   action?: ReactNode;
   className?: string;
+  /** Override the description's text color — e.g. `text-surface-blue-muted` on a blue Section. */
+  descriptionClassName?: string;
 }
 
 export function SectionHeading({
@@ -20,6 +22,7 @@ export function SectionHeading({
   align = "left",
   action,
   className,
+  descriptionClassName,
 }: SectionHeadingProps) {
   return (
     <Reveal
@@ -32,11 +35,16 @@ export function SectionHeading({
     >
       <div className={cn("max-w-2xl", align === "center" && "mx-auto")}>
         {eyebrow ? <Eyebrow align={align}>{eyebrow}</Eyebrow> : null}
-        <h2 className="text-balance font-heading text-[clamp(1.75rem,1.2rem+2.2vw,3rem)] leading-[1.05] font-medium tracking-tight">
+        <h2 className="text-balance font-heading text-[clamp(2rem,1.3rem+3.2vw,4rem)] leading-[1.02] font-semibold tracking-tight">
           {title}
         </h2>
         {description ? (
-          <p className="mt-4 text-balance text-base text-muted-foreground sm:text-lg">
+          <p
+            className={cn(
+              "mt-4 text-balance text-base text-muted-foreground sm:text-lg",
+              descriptionClassName,
+            )}
+          >
             {description}
           </p>
         ) : null}

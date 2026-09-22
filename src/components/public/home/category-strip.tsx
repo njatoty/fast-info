@@ -38,7 +38,7 @@ export async function CategoryStrip({ categories }: { categories: ProductCategor
             <Link
               key={category.id}
               href={`/produits?categorie=${category.slug}`}
-              className="flex shrink-0 items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+              className="flex shrink-0 items-center gap-2 border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
             >
               <Icon className="size-4" />
               {category.name}
@@ -49,7 +49,7 @@ export async function CategoryStrip({ categories }: { categories: ProductCategor
           <Link
             key={link.slug}
             href={link.href}
-            className="flex shrink-0 items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+            className="flex shrink-0 items-center gap-2 border border-border px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
           >
             <link.icon className="size-4" />
             {link.name}

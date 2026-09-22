@@ -74,12 +74,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       className={`${poppins.variable} ${chakraPetch.variable}`}
     >
       <body className="min-h-svh flex flex-col antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" disableTransitionOnChange>
           <LocaleProvider locale={locale} dict={dict}>
             <TooltipProvider delayDuration={200}>
               {children}

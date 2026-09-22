@@ -13,13 +13,18 @@ export async function OffersBand({ offers }: { offers: Offer[] }) {
   const dict = await getDictionary();
 
   return (
-    <Section tone="dark">
+    <Section tone="blue">
       <SectionHeading
         eyebrow={dict.home.offers.eyebrow}
         title={dict.home.offers.title}
         description={dict.home.offers.description}
+        descriptionClassName="text-surface-blue-muted"
         action={
-          <Button variant="outline" asChild>
+          <Button
+            variant="outline"
+            asChild
+            className="rounded-none border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
+          >
             <Link href="/offres">{dict.home.offers.cta}</Link>
           </Button>
         }

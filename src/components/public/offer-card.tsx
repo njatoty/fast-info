@@ -14,7 +14,7 @@ export async function OfferCard({ offer }: { offer: Offer }) {
       : null;
 
   return (
-    <div className="group overflow-hidden rounded-md border border-border bg-card">
+    <div className="group overflow-hidden border border-border bg-card">
       <SmartImage
         src={offer.image?.url}
         alt={offer.image?.alt ?? offer.title}
@@ -27,7 +27,7 @@ export async function OfferCard({ offer }: { offer: Offer }) {
         <div className="flex items-start justify-between gap-3">
           <h3 className="font-heading text-lg font-medium">{offer.title}</h3>
           {discountPercent ? (
-            <span className="shrink-0 rounded-full bg-primary px-2.5 py-1 text-xs font-semibold text-primary-foreground">
+            <span className="shrink-0 bg-surface-yellow px-2.5 py-1 text-xs font-semibold text-surface-yellow-foreground">
               -{discountPercent}%
             </span>
           ) : null}

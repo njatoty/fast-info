@@ -14,11 +14,12 @@ export async function ServiceRows({ services }: { services: Service[] }) {
   const dict = await getDictionary();
 
   return (
-    <Section tone="muted">
+    <Section tone="blue" edge="top">
       <SectionHeading
         eyebrow={dict.home.services.eyebrow}
         title={dict.home.services.title}
         description={dict.home.services.description}
+        descriptionClassName="text-surface-blue-muted"
       />
 
       <div className="mt-12 flex flex-col gap-16 lg:gap-20">
@@ -33,7 +34,7 @@ export async function ServiceRows({ services }: { services: Service[] }) {
                 alt={service.coverImage?.alt ?? service.title}
                 blurDataURL={service.coverImage?.blurDataURL}
                 aspectRatio={16 / 10}
-                wrapperClassName="rounded-md"
+                wrapperClassName="rounded-none"
                 sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
@@ -42,7 +43,7 @@ export async function ServiceRows({ services }: { services: Service[] }) {
               <h3 className="mt-4 font-heading text-2xl font-medium tracking-tight sm:text-3xl">
                 {service.title}
               </h3>
-              <p className="mt-4 max-w-md text-muted-foreground">{service.description}</p>
+              <p className="mt-4 max-w-md text-surface-blue-muted">{service.description}</p>
               <Button variant="link" asChild className="mt-4 gap-1.5 px-0">
                 <Link href={`/services/${service.slug}`}>
                   {dict.home.services.cta}

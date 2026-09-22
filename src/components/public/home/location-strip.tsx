@@ -12,7 +12,7 @@ export async function LocationStrip({ settings }: { settings: SiteSettings }) {
   const dict = await getDictionary();
 
   return (
-    <Section tone="muted">
+    <Section tone="blue" edge="top">
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
         <Reveal>
           <Eyebrow>{dict.home.location.eyebrow}</Eyebrow>
@@ -24,7 +24,7 @@ export async function LocationStrip({ settings }: { settings: SiteSettings }) {
               <MapPin className="mt-0.5 size-5 shrink-0 text-primary" />
               <div>
                 <p className="font-medium">{settings.address}</p>
-                <p className="text-sm text-muted-foreground">{settings.city}</p>
+                <p className="text-sm text-surface-blue-muted">{settings.city}</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
@@ -32,7 +32,7 @@ export async function LocationStrip({ settings }: { settings: SiteSettings }) {
               <div className="space-y-1">
                 {settings.openingHours.map((hour) => (
                   <p key={hour.day} className="text-sm">
-                    <span className="text-muted-foreground">{hour.day} : </span>
+                    <span className="text-surface-blue-muted">{hour.day} : </span>
                     {hour.hours}
                   </p>
                 ))}
@@ -40,7 +40,11 @@ export async function LocationStrip({ settings }: { settings: SiteSettings }) {
             </div>
           </div>
           {settings.mapUrl ? (
-            <Button variant="outline" className="mt-8 gap-2" asChild>
+            <Button
+              variant="outline"
+              className="mt-8 gap-2 rounded-none border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
+              asChild
+            >
               <a href={settings.mapUrl} target="_blank" rel="noopener noreferrer">
                 <Navigation className="size-4" />
                 {dict.home.location.directions}
@@ -51,12 +55,12 @@ export async function LocationStrip({ settings }: { settings: SiteSettings }) {
 
         <Reveal
           delay={120}
-          className="flex min-h-64 items-center justify-center rounded-md border border-border bg-card"
+          className="flex min-h-64 items-center justify-center border border-surface-blue-border bg-white/5"
         >
           <div className="text-center">
             <MapPin className="mx-auto size-8 text-primary" strokeWidth={1.25} />
             <p className="mt-3 text-sm font-medium">{settings.city}</p>
-            <p className="text-sm text-muted-foreground">{settings.address}</p>
+            <p className="text-sm text-surface-blue-muted">{settings.address}</p>
           </div>
         </Reveal>
       </div>

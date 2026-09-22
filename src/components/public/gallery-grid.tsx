@@ -32,7 +32,7 @@ export function GalleryGrid({ images }: { images: MediaImage[] }) {
               alt={image.alt}
               blurDataURL={image.blurDataURL}
               aspectRatio={image.width / image.height}
-              wrapperClassName="rounded-md"
+              wrapperClassName="rounded-none"
               sizes="(min-width: 1024px) 25vw, 50vw"
               className="transition-transform duration-500 group-hover:scale-[1.03]"
             />

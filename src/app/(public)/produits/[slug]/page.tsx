@@ -103,8 +103,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </Reveal>
 
           <Reveal delay={100}>
-            {product.category ? <Badge variant="secondary">{product.category.name}</Badge> : null}
-            <h1 className="mt-3 font-heading text-[clamp(1.75rem,1.3rem+2vw,2.5rem)] leading-tight font-medium tracking-tight">
+            {product.category ? (
+              <Badge variant="secondary" className="rounded-none">
+                {product.category.name}
+              </Badge>
+            ) : null}
+            <h1 className="mt-3 font-heading text-[clamp(1.75rem,1.3rem+2vw,2.5rem)] leading-tight font-semibold tracking-tight">
               {product.name}
             </h1>
             <AvailabilityBadge availability={product.availability} className="mt-3" />

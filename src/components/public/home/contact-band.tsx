@@ -13,18 +13,18 @@ export async function ContactBand({ settings }: { settings: SiteSettings }) {
   return (
     <Section className="text-center">
       <Reveal className="mx-auto max-w-2xl">
-        <h2 className="text-balance font-heading text-[clamp(1.75rem,1.3rem+2vw,2.75rem)] leading-tight font-medium tracking-tight">
+        <h2 className="text-balance font-heading text-[clamp(2rem,1.5rem+2.4vw,3.25rem)] leading-tight font-semibold tracking-tight">
           {dict.home.contactBand.title}
         </h2>
         <p className="mt-4 text-muted-foreground">{dict.home.contactBand.description}</p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Button size="lg" asChild className="gap-2">
+          <Button variant="cta" size="xl" asChild className="gap-2">
             <a href={`tel:${settings.phone.replace(/\s+/g, "")}`}>
               <Phone className="size-4" />
               {settings.phone}
             </a>
           </Button>
-          <Button size="lg" variant="outline" asChild className="gap-2">
+          <Button size="xl" variant="outline" asChild className="gap-2 rounded-none">
             <Link href="/contact">
               <MessageCircle className="size-4" />
               {dict.home.contactBand.formCta}

@@ -40,10 +40,10 @@ export function ContactForm({ defaultSubject }: { defaultSubject?: string }) {
 
   if (submitted) {
     return (
-      <div className="rounded-md border border-border bg-card p-8 text-center">
+      <div className="border border-border bg-card p-8 text-center">
         <p className="font-medium">{dict.contact.form.successTitle}</p>
         <p className="mt-2 text-sm text-muted-foreground">{dict.contact.form.successDescription}</p>
-        <Button variant="outline" className="mt-6" onClick={() => setSubmitted(false)}>
+        <Button variant="outline" className="mt-6 rounded-none" onClick={() => setSubmitted(false)}>
           {dict.contact.form.sendAnother}
         </Button>
       </div>
@@ -56,7 +56,13 @@ export function ContactForm({ defaultSubject }: { defaultSubject?: string }) {
         <div className="grid gap-5 sm:grid-cols-2">
           <Field data-invalid={!!errors.name}>
             <FieldLabel htmlFor="contact-name">{dict.contact.form.name}</FieldLabel>
-            <Input id="contact-name" autoComplete="name" aria-invalid={!!errors.name} {...register("name")} />
+            <Input
+              id="contact-name"
+              autoComplete="name"
+              aria-invalid={!!errors.name}
+              className="rounded-none"
+              {...register("name")}
+            />
             <FieldError errors={[errors.name]} />
           </Field>
           <Field data-invalid={!!errors.email}>
@@ -66,6 +72,7 @@ export function ContactForm({ defaultSubject }: { defaultSubject?: string }) {
               type="email"
               autoComplete="email"
               aria-invalid={!!errors.email}
+              className="rounded-none"
               {...register("email")}
             />
             <FieldError errors={[errors.email]} />
@@ -75,11 +82,11 @@ export function ContactForm({ defaultSubject }: { defaultSubject?: string }) {
         <div className="grid gap-5 sm:grid-cols-2">
           <Field>
             <FieldLabel htmlFor="contact-phone">{dict.contact.form.phone}</FieldLabel>
-            <Input id="contact-phone" autoComplete="tel" {...register("phone")} />
+            <Input id="contact-phone" autoComplete="tel" className="rounded-none" {...register("phone")} />
           </Field>
           <Field>
             <FieldLabel htmlFor="contact-subject">{dict.contact.form.subject}</FieldLabel>
-            <Input id="contact-subject" {...register("subject")} />
+            <Input id="contact-subject" className="rounded-none" {...register("subject")} />
           </Field>
         </div>
 
@@ -89,12 +96,19 @@ export function ContactForm({ defaultSubject }: { defaultSubject?: string }) {
             id="contact-message"
             rows={5}
             aria-invalid={!!errors.message}
+            className="rounded-none"
             {...register("message")}
           />
           <FieldError errors={[errors.message]} />
         </Field>
 
-        <Button type="submit" size="lg" disabled={isSubmitting} className="w-fit gap-2">
+        <Button
+          type="submit"
+          variant="cta"
+          size="lg"
+          disabled={isSubmitting}
+          className="w-fit gap-2 rounded-none"
+        >
           {isSubmitting ? (
             <Loader2 className="size-4 animate-spin" />
           ) : (

@@ -22,7 +22,7 @@ export function ProductCard({
         alt={product.mainImage?.alt ?? product.name}
         blurDataURL={product.mainImage?.blurDataURL}
         aspectRatio={size === "large" ? 4 / 5 : 1}
-        wrapperClassName="rounded-md"
+        wrapperClassName="rounded-none"
         sizes={size === "large" ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 25vw, 50vw"}
         className="transition-transform duration-500 group-hover:scale-[1.03]"
       />

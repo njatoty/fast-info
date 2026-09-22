@@ -54,10 +54,10 @@ export default async function EventPage({ params }: EventPageProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
         <Container className="absolute inset-x-0 bottom-0 pb-8 text-white">
-          <Badge variant="secondary" className="font-normal">
+          <Badge variant="secondary" className="rounded-none font-normal">
             {event.category}
           </Badge>
-          <h1 className="mt-3 font-heading text-[clamp(1.75rem,1.2rem+2.5vw,3rem)] leading-tight font-medium tracking-tight">
+          <h1 className="mt-3 font-heading text-[clamp(1.75rem,1.2rem+2.5vw,3rem)] leading-tight font-semibold tracking-tight">
             {event.title}
           </h1>
           <div className="mt-3 flex flex-wrap items-center gap-4 text-sm text-white/80">

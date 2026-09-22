@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { LanguageSwitcher } from "@/components/public/language-switcher";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { ThemeToggle } from "@/components/providers/theme-toggle";
 import { useDictionary } from "@/components/providers/locale-provider";
 import { t } from "@/lib/i18n/locales";
 import type { SiteSettings } from "@/types/domain";
@@ -84,13 +83,12 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
             href={`tel:${settings.phone.replace(/\s+/g, "")}`}
             className="hidden items-center gap-2 text-sm font-medium sm:flex"
           >
-            <Button size="sm" className="gap-2">
+            <Button variant="cta" size="sm" className="gap-2 rounded-none">
               <Phone className="size-3.5" />
               {dict.common.call}
             </Button>
           </a>
           <LanguageSwitcher className="hidden sm:flex" />
-          <ThemeToggle />
 
           <Sheet>
             <SheetTrigger asChild>
@@ -128,7 +126,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
               <div className="mt-auto flex flex-col gap-3 p-4">
                 <LanguageSwitcher className="self-start sm:hidden" />
                 <a href={`tel:${settings.phone.replace(/\s+/g, "")}`}>
-                  <Button className="w-full gap-2">
+                  <Button variant="cta" className="w-full gap-2 rounded-none">
                     <Phone className="size-4" />
                     {t(dict.common.callBrandTemplate, { brand: "FastInfo" })}
                   </Button>

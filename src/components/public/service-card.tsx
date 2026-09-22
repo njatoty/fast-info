@@ -12,7 +12,7 @@ export function ServiceCard({ service }: { service: Service }) {
         alt={service.coverImage?.alt ?? service.title}
         blurDataURL={service.coverImage?.blurDataURL}
         aspectRatio={4 / 3}
-        wrapperClassName="rounded-md"
+        wrapperClassName="rounded-none"
         sizes="(min-width: 1024px) 25vw, 50vw"
         className="transition-transform duration-500 group-hover:scale-[1.03]"
       />

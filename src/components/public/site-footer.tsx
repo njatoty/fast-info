@@ -25,7 +25,7 @@ export async function SiteFooter({ settings }: { settings: SiteSettings }) {
   ];
 
   return (
-    <footer className="border-t border-border bg-secondary/30">
+    <footer className="diagonal-top dark bg-surface-blue text-surface-blue-foreground">
       <Container className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:py-20">
         <div className="lg:col-span-1">
           <Link href="/" className="flex items-center gap-2.5">
@@ -34,7 +34,7 @@ export async function SiteFooter({ settings }: { settings: SiteSettings }) {
               Fast<span className="text-primary">Info</span>
             </span>
           </Link>
-          <p className="mt-4 max-w-xs text-sm text-muted-foreground">{settings.heroSubtitle}</p>
+          <p className="mt-4 max-w-xs text-sm text-surface-blue-muted">{settings.heroSubtitle}</p>
           <div className="mt-5 flex gap-3">
             {settings.socials.map((social) => {
               const Icon = SOCIAL_ICONS[social.platform];
@@ -45,7 +45,7 @@ export async function SiteFooter({ settings }: { settings: SiteSettings }) {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex size-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                  className="flex size-9 items-center justify-center border border-surface-blue-border text-surface-blue-muted transition-colors hover:border-primary hover:text-primary"
                   aria-label={social.platform}
                 >
                   <Icon className="size-4" />
@@ -57,7 +57,7 @@ export async function SiteFooter({ settings }: { settings: SiteSettings }) {
 
         <div>
           <p className="text-sm font-medium tracking-wide">{dict.footer.explore}</p>
-          <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
+          <ul className="mt-4 space-y-2.5 text-sm text-surface-blue-muted">
             {EXPLORE_LINKS.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="transition-colors hover:text-foreground">
@@ -70,7 +70,7 @@ export async function SiteFooter({ settings }: { settings: SiteSettings }) {
 
         <div>
           <p className="text-sm font-medium tracking-wide">{dict.footer.company}</p>
-          <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
+          <ul className="mt-4 space-y-2.5 text-sm text-surface-blue-muted">
             <li>
               <Link href="/a-propos" className="transition-colors hover:text-foreground">
                 {dict.nav.about}
@@ -86,7 +86,7 @@ export async function SiteFooter({ settings }: { settings: SiteSettings }) {
 
         <div>
           <p className="text-sm font-medium tracking-wide">{dict.footer.contact}</p>
-          <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+          <ul className="mt-4 space-y-3 text-sm text-surface-blue-muted">
             <li className="flex items-start gap-2.5">
               <Phone className="mt-0.5 size-4 shrink-0" />
               <a href={`tel:${settings.phone.replace(/\s+/g, "")}`} className="hover:text-foreground">
@@ -111,8 +111,8 @@ export async function SiteFooter({ settings }: { settings: SiteSettings }) {
         </div>
       </Container>
 
-      <div className="border-t border-border py-6">
-        <Container className="flex flex-col items-center justify-between gap-2 text-xs text-muted-foreground sm:flex-row">
+      <div className="border-t border-surface-blue-border py-6">
+        <Container className="flex flex-col items-center justify-between gap-2 text-xs text-surface-blue-muted sm:flex-row">
           <p>
             © {new Date().getFullYear()} FastInfo. {dict.footer.rights}
           </p>

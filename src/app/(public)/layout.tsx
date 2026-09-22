@@ -31,7 +31,10 @@ export default async function PublicLayout({ children }: { children: ReactNode }
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
       />
       <SiteHeader settings={settings} />
-      <main className="flex-1">{children}</main>
+      {/* [&>*:last-child]:flex-1 makes the page's own last section (whatever
+          its tone) absorb any leftover viewport height on short pages,
+          instead of leaving a blank body-background gap before the footer. */}
+      <main className="flex flex-1 flex-col [&>*:last-child]:flex-1">{children}</main>
       <SiteFooter settings={settings} />
       <WhatsAppFab whatsapp={settings.whatsapp} />
     </>
