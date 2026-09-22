@@ -24,7 +24,7 @@ export async function ContactBand({ settings }: { settings: SiteSettings }) {
               {settings.phone}
             </a>
           </Button>
-          <Button size="xl" variant="outline" asChild className="gap-2 rounded-none">
+          <Button size="xl" variant="outline" asChild className="gap-2 rounded-[8px]">
             <Link href="/contact">
               <MessageCircle className="size-4" />
               {dict.home.contactBand.formCta}

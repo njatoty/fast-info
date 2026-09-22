@@ -42,7 +42,7 @@ export async function LocationStrip({ settings }: { settings: SiteSettings }) {
           {settings.mapUrl ? (
             <Button
               variant="outline"
-              className="mt-8 gap-2 rounded-none border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
+              className="mt-8 gap-2 rounded-[8px] border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
               asChild
             >
               <a href={settings.mapUrl} target="_blank" rel="noopener noreferrer">

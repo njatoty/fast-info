@@ -18,9 +18,9 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        // Public-site marketing CTA only — square, high-contrast yellow.
+        // Public-site marketing CTA only — high-contrast yellow.
         // Admin never references this variant, so it's purely additive.
-        cta: "rounded-none border-black/10 bg-surface-yellow text-surface-yellow-foreground shadow-sm hover:bg-surface-yellow/90",
+        cta: "rounded-[8px] border-black/10 bg-surface-yellow text-surface-yellow-foreground shadow-sm hover:bg-surface-yellow/90",
       },
       size: {
         default:

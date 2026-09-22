@@ -18,7 +18,7 @@ export async function RecentEvents({ events }: { events: EventProject[] }) {
         eyebrow={dict.home.events.eyebrow}
         title={dict.home.events.title}
         action={
-          <Button variant="outline" asChild className="rounded-none">
+          <Button variant="outline" asChild className="rounded-[8px]">
             <Link href="/evenements">{dict.home.events.cta}</Link>
           </Button>
         }

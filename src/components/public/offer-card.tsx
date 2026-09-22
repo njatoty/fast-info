@@ -14,7 +14,7 @@ export async function OfferCard({ offer }: { offer: Offer }) {
       : null;
 
   return (
-    <div className="group overflow-hidden border border-border bg-card">
+    <div className="group overflow-hidden rounded-[8px] border border-surface-blue-border bg-white/8">
       <SmartImage
         src={offer.image?.url}
         alt={offer.image?.alt ?? offer.title}
@@ -27,24 +27,24 @@ export async function OfferCard({ offer }: { offer: Offer }) {
         <div className="flex items-start justify-between gap-3">
           <h3 className="font-heading text-lg font-medium">{offer.title}</h3>
           {discountPercent ? (
-            <span className="shrink-0 bg-surface-yellow px-2.5 py-1 text-xs font-semibold text-surface-yellow-foreground">
+            <span className="shrink-0 rounded-[8px] bg-surface-yellow px-2.5 py-1 text-xs font-semibold text-surface-yellow-foreground">
               -{discountPercent}%
             </span>
           ) : null}
         </div>
-        <p className="mt-2 text-sm text-muted-foreground">{offer.description}</p>
+        <p className="mt-2 text-sm text-surface-blue-muted">{offer.description}</p>
         {hasPrices ? (
           <div className="mt-4 flex items-baseline gap-2">
             <span className="text-lg font-medium text-primary">
               {formatCurrency(offer.promoPrice!)}
             </span>
-            <span className="text-sm text-muted-foreground line-through">
+            <span className="text-sm text-surface-blue-muted line-through">
               {formatCurrency(offer.originalPrice!)}
             </span>
           </div>
         ) : null}
         {offer.endsAt ? (
-          <p className="mt-3 text-xs text-muted-foreground/70">
+          <p className="mt-3 text-xs text-surface-blue-muted/70">
             {t(dict.offers.validUntilTemplate, { date: formatDateRange(offer.endsAt, null, locale) })}
           </p>
         ) : null}

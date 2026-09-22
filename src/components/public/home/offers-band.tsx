@@ -23,7 +23,7 @@ export async function OffersBand({ offers }: { offers: Offer[] }) {
           <Button
             variant="outline"
             asChild
-            className="rounded-none border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
+            className="rounded-[8px] border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
           >
             <Link href="/offres">{dict.home.offers.cta}</Link>
           </Button>

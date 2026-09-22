@@ -20,7 +20,7 @@ export async function FeaturedProducts({ products }: { products: Product[] }) {
         title={dict.home.featuredProducts.title}
         description={dict.home.featuredProducts.description}
         action={
-          <Button variant="outline" asChild className="rounded-none">
+          <Button variant="outline" asChild className="rounded-[8px]">
             <Link href="/produits">{dict.home.featuredProducts.cta}</Link>
           </Button>
         }

@@ -83,7 +83,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
             href={`tel:${settings.phone.replace(/\s+/g, "")}`}
             className="hidden items-center gap-2 text-sm font-medium sm:flex"
           >
-            <Button variant="cta" size="sm" className="gap-2 rounded-none">
+            <Button variant="cta" size="sm" className="gap-2 rounded-[8px]">
               <Phone className="size-3.5" />
               {dict.common.call}
             </Button>
@@ -92,7 +92,12 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
 
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden" aria-label={dict.common.openMenu}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-[8px] lg:hidden"
+                aria-label={dict.common.openMenu}
+              >
                 <Menu className="size-5" />
               </Button>
             </SheetTrigger>
@@ -126,7 +131,7 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
               <div className="mt-auto flex flex-col gap-3 p-4">
                 <LanguageSwitcher className="self-start sm:hidden" />
                 <a href={`tel:${settings.phone.replace(/\s+/g, "")}`}>
-                  <Button variant="cta" className="w-full gap-2 rounded-none">
+                  <Button variant="cta" className="w-full gap-2 rounded-[8px]">
                     <Phone className="size-4" />
                     {t(dict.common.callBrandTemplate, { brand: "FastInfo" })}
                   </Button>

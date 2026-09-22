@@ -20,7 +20,7 @@ export async function GalleryTeaser({ items }: { items: GalleryItem[] }) {
           title={dict.home.gallery.title}
           description={dict.home.gallery.description}
           action={
-            <Button variant="outline" asChild className="rounded-none">
+            <Button variant="outline" asChild className="rounded-[8px]">
               <Link href="/galerie">{dict.home.gallery.cta}</Link>
             </Button>
           }

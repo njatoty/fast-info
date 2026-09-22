@@ -40,7 +40,7 @@ export async function Hero({ settings }: { settings: SiteSettings }) {
                 <ArrowRight className="size-4" />
               </Link>
             </Button>
-            <Button size="xl" variant="outline" asChild className="gap-2 rounded-none">
+            <Button size="xl" variant="outline" asChild className="gap-2 rounded-[8px]">
               <Link href="/contact">
                 <MessageCircle className="size-4" />
                 {dict.home.hero.ctaContact}
