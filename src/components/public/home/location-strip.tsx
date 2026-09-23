@@ -8,8 +8,37 @@ import { getDictionary } from "@/lib/i18n/get-dictionary";
 import { t } from "@/lib/i18n/locales";
 import type { SiteSettings } from "@/types/domain";
 
+function extractLatLng(mapUrl: string): string | null {
+  // Google "place" links repeat several !3d<lat>!4d<lng> pairs — earlier ones
+  // are often a containing district used for disambiguation, so the last
+  // pair is the one closest to the actual pinned place.
+  const pairs = [...mapUrl.matchAll(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/g)];
+  if (pairs.length > 0) {
+    const [, lat, lng] = pairs[pairs.length - 1];
+    return `${lat},${lng}`;
+  }
+  const center = mapUrl.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/);
+  return center ? `${center[1]},${center[2]}` : null;
+}
+
+function buildMapEmbedSrc(settings: SiteSettings) {
+  if (settings.mapUrl) {
+    const latLng = extractLatLng(settings.mapUrl);
+    if (latLng) return `https://www.google.com/maps?q=${latLng}&output=embed`;
+
+    try {
+      const query = new URL(settings.mapUrl).searchParams.get("q");
+      if (query) return `https://www.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+    } catch {
+      // mapUrl isn't a parseable/query-based link (e.g. a shortened share link) — fall back below.
+    }
+  }
+  return `https://www.google.com/maps?q=${encodeURIComponent(`${settings.address}, ${settings.city}`)}&output=embed`;
+}
+
 export async function LocationStrip({ settings }: { settings: SiteSettings }) {
   const dict = await getDictionary();
+  const mapEmbedSrc = buildMapEmbedSrc(settings);
 
   return (
     <Section tone="blue" edge="top">
@@ -55,13 +84,16 @@ export async function LocationStrip({ settings }: { settings: SiteSettings }) {
 
         <Reveal
           delay={120}
-          className="flex min-h-64 items-center justify-center border border-surface-blue-border bg-white/5"
+          className="min-h-64 overflow-hidden rounded-[8px] border border-surface-blue-border"
         >
-          <div className="text-center">
-            <MapPin className="mx-auto size-8 text-primary" strokeWidth={1.25} />
-            <p className="mt-3 text-sm font-medium">{settings.city}</p>
-            <p className="text-sm text-surface-blue-muted">{settings.address}</p>
-          </div>
+          <iframe
+            src={mapEmbedSrc}
+            title={t(dict.home.location.titleTemplate, { city: settings.city.split(",")[0] })}
+            className="size-full min-h-64"
+            style={{ border: 0 }}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </Reveal>
       </div>
     </Section>
