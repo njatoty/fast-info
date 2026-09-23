@@ -23,7 +23,7 @@ export function ProductGallery({ images, name }: { images: MediaImage[]; name: s
           alt={current?.alt ?? name}
           blurDataURL={current?.blurDataURL}
           aspectRatio={1}
-          wrapperClassName="rounded-none"
+          wrapperClassName="rounded-[8px]"
           sizes="(min-width: 1024px) 45vw, 100vw"
           priority
         />
@@ -36,7 +36,7 @@ export function ProductGallery({ images, name }: { images: MediaImage[]; name: s
               key={image.id}
               type="button"
               onClick={() => setActive(index)}
-              className={`overflow-hidden ring-2 transition-colors ${
+              className={`overflow-hidden rounded-[8px] ring-2 transition-colors ${
                 index === active ? "ring-primary" : "ring-transparent hover:ring-border"
               }`}
             >
@@ -45,6 +45,7 @@ export function ProductGallery({ images, name }: { images: MediaImage[]; name: s
                 alt={image.alt}
                 blurDataURL={image.blurDataURL}
                 aspectRatio={1}
+                wrapperClassName="rounded-[8px]"
                 sizes="20vw"
               />
             </button>

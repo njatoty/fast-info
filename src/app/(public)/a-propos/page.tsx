@@ -44,7 +44,7 @@ export default async function AboutPage() {
               src={demoImage("techWorkspace", 1200, 1500)}
               alt={dict.about.imageAlt}
               aspectRatio={4 / 5}
-              wrapperClassName="rounded-none"
+              wrapperClassName="rounded-[8px]"
               sizes="(min-width: 1024px) 45vw, 100vw"
             />
           </Reveal>

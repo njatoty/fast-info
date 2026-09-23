@@ -17,7 +17,7 @@ export async function EventCard({ event }: { event: EventProject }) {
         alt={event.coverImage?.alt ?? event.title}
         blurDataURL={event.coverImage?.blurDataURL}
         aspectRatio={4 / 5}
-        wrapperClassName="rounded-none"
+        wrapperClassName="rounded-[8px]"
         sizes="(min-width: 1024px) 25vw, 50vw"
         className="transition-transform duration-500 group-hover:scale-[1.03]"
       />

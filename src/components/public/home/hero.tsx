@@ -58,7 +58,7 @@ export async function Hero({ settings }: { settings: SiteSettings }) {
               alt={dict.home.hero.imageAlt1}
               aspectRatio={5 / 4}
               sizes="(min-width: 1024px) 55vw, 100vw"
-              wrapperClassName="absolute inset-0 rounded-none"
+              wrapperClassName="absolute inset-0 rounded-[8px]"
               priority
             />
             <div className="absolute -bottom-6 -left-4 w-[45%] sm:-bottom-8 sm:-left-8 sm:w-[42%]">
@@ -67,7 +67,7 @@ export async function Hero({ settings }: { settings: SiteSettings }) {
                 alt={dict.home.hero.imageAlt2}
                 aspectRatio={4 / 5}
                 sizes="(min-width: 1024px) 25vw, 45vw"
-                wrapperClassName="rounded-none ring-4 ring-background"
+                wrapperClassName="rounded-[8px] ring-4 ring-background"
               />
             </div>
           </div>

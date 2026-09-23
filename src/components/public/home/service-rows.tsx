@@ -34,7 +34,7 @@ export async function ServiceRows({ services }: { services: Service[] }) {
                 alt={service.coverImage?.alt ?? service.title}
                 blurDataURL={service.coverImage?.blurDataURL}
                 aspectRatio={16 / 10}
-                wrapperClassName="rounded-none"
+                wrapperClassName="rounded-[8px]"
                 sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
