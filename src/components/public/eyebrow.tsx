@@ -19,7 +19,7 @@ export function Eyebrow({
       )}
     >
       <span className="h-px w-6 shrink-0 bg-primary" aria-hidden />
-      <span className="text-xs font-semibold tracking-[0.2em] text-primary uppercase">
+      <span className="text-xs font-semibold tracking-normal text-primary hidden">
         {children}
       </span>
     </div>
