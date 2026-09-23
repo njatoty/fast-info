@@ -1,33 +1,113 @@
 "use client";
 
 import { cn } from "cn";
-import { Menu, Phone } from "lucide-react";
+import { ChevronDown, Menu, Phone, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { NavigationMenu } from "radix-ui";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import { LanguageSwitcher } from "@/components/public/language-switcher";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useDictionary } from "@/components/providers/locale-provider";
-import { t } from "@/lib/i18n/locales";
-import type { SiteSettings } from "@/types/domain";
+import { LanguageSwitcher } from "@/components/public/language-switcher";
+import { MegaMenuProducts } from "@/components/public/nav/mega-menu-products";
+import { MegaMenuServices } from "@/components/public/nav/mega-menu-services";
+import { MobileNav } from "@/components/public/nav/mobile-nav";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import type { Dictionary } from "@/lib/i18n/get-dictionary";
+import type { Product, ProductCategory, Service, SiteSettings } from "@/types/domain";
 
-export function SiteHeader({ settings }: { settings: SiteSettings }) {
+// Shared so every trigger/link in the bar lines up pixel-for-pixel.
+const ITEM_CLASS =
+  "group relative flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 data-active:text-foreground data-open:text-foreground";
+
+function ItemUnderline() {
+  return (
+    <span
+      aria-hidden
+      className="absolute inset-x-3 -bottom-px h-px scale-x-0 bg-primary transition-transform duration-200 ease-out motion-reduce:transition-none group-hover:scale-x-100 group-data-active:scale-x-100"
+    />
+  );
+}
+
+function NavLink({ href, label, active }: { href: string; label: string; active: boolean }) {
+  return (
+    <NavigationMenu.Item>
+      <NavigationMenu.Link asChild active={active}>
+        <Link href={href} className={ITEM_CLASS}>
+          {label}
+          <ItemUnderline />
+        </Link>
+      </NavigationMenu.Link>
+    </NavigationMenu.Item>
+  );
+}
+
+// Radix's NavigationMenu.Content is a plain block box, so without this it
+// stretches to its containing block's width instead of shrinking to fit —
+// which then feeds a wrong (too wide) size into the shared Viewport's
+// width transition for every panel, not just this one.
+const MENU_CONTENT_CLASS = "inline-block outline-none";
+
+function GalleryMenuLink({ href, title, description }: { href: string; title: string; description: string }) {
+  return (
+    <NavigationMenu.Link asChild>
+      <Link
+        href={href}
+        className="flex flex-col gap-0.5 rounded-md px-3 py-2.5 transition-colors hover:bg-accent"
+      >
+        <span className="text-sm font-medium">{title}</span>
+        <span className="text-xs text-muted-foreground">{description}</span>
+      </Link>
+    </NavigationMenu.Link>
+  );
+}
+
+interface SiteHeaderProps {
+  settings: SiteSettings;
+  categories: ProductCategory[];
+  featuredProduct: Product | null;
+  services: Service[];
+  featuredService: Service | null;
+}
+
+export function SiteHeader({
+  settings,
+  categories,
+  featuredProduct,
+  services,
+  featuredService,
+}: SiteHeaderProps) {
   const pathname = usePathname();
-  const dict = useDictionary();
+  const dict: Dictionary = useDictionary();
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const NAV_LINKS = [
-    { href: "/", label: dict.nav.home },
-    { href: "/produits", label: dict.nav.products },
-    { href: "/services", label: dict.nav.services },
-    { href: "/offres", label: dict.nav.offers },
-    { href: "/galerie", label: dict.nav.gallery },
-    { href: "/evenements", label: dict.nav.events },
-    { href: "/a-propos", label: dict.nav.about },
-  ];
+  // Each mega menu shares one panel/Viewport (so its size can collapse
+  // fluidly between items instead of popping), but that means the panel
+  // must be manually slid under whichever trigger is actually open —
+  // otherwise it stays pinned at the start of the nav for every item.
+  const [panelOffset, setPanelOffset] = useState(0);
+  const triggerRefs = useRef(new Map<string, HTMLButtonElement>());
+
+  const setProductsTrigger = useCallback((el: HTMLButtonElement | null) => {
+    if (el) triggerRefs.current.set("products", el);
+    else triggerRefs.current.delete("products");
+  }, []);
+  const setServicesTrigger = useCallback((el: HTMLButtonElement | null) => {
+    if (el) triggerRefs.current.set("services", el);
+    else triggerRefs.current.delete("services");
+  }, []);
+  const setGalleryTrigger = useCallback((el: HTMLButtonElement | null) => {
+    if (el) triggerRefs.current.set("gallery", el);
+    else triggerRefs.current.delete("gallery");
+  }, []);
+
+  function handleMenuValueChange(value: string) {
+    const trigger = value ? triggerRefs.current.get(value) : undefined;
+    if (trigger) setPanelOffset(trigger.offsetLeft);
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -36,47 +116,131 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close the mobile drawer on route change (e.g. a link inside it was
+  // clicked), following React's "adjust state during render" pattern rather
+  // than an effect, so it never lingers open over the new page.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setMobileOpen(false);
+  }
+
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const galleryActive = isActive("/galerie") || isActive("/evenements");
+
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-colors duration-300",
+        "sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow] duration-300",
         scrolled
-          ? "border-b border-border/80 bg-background/85 backdrop-blur-md"
+          ? "border-b border-border/80 bg-background/85 shadow-sm backdrop-blur-md"
           : "border-b border-transparent bg-transparent",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-2.5">
+      <div
+        className={cn(
+          "mx-auto flex max-w-7xl items-center justify-between px-4 transition-[height] duration-300 sm:px-6 lg:px-8",
+          scrolled ? "h-14" : "h-16",
+        )}
+      >
+        <Link href="/" className="group flex shrink-0 items-center gap-2.5">
           <Image
             src="/brand/logo-mark-160.png"
             alt=""
             width={160}
             height={114}
             priority
-            className="h-9 w-auto"
+            className="h-9 w-auto transition-transform duration-300 ease-out motion-reduce:transition-none group-hover:scale-105"
           />
           <span className="font-heading text-xl font-semibold tracking-tight">
             Fast<span className="text-primary">Info</span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
-          {NAV_LINKS.map((link) => {
-            const active = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                  active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
-                )}
+        <NavigationMenu.Root
+          className="relative hidden lg:block"
+          delayDuration={150}
+          skipDelayDuration={300}
+          onValueChange={handleMenuValueChange}
+        >
+          <NavigationMenu.List className="flex items-center gap-1">
+            <NavLink href="/" label={dict.nav.home} active={isActive("/")} />
+
+            <NavigationMenu.Item value="products">
+              <NavigationMenu.Trigger
+                ref={setProductsTrigger}
+                className={ITEM_CLASS}
+                data-active={isActive("/produits")}
               >
-                {link.label}
-              </Link>
-            );
-          })}
-        </nav>
+                {dict.nav.products}
+                <ChevronDown className="size-3.5 transition-transform duration-200 motion-reduce:transition-none group-data-open:rotate-180" />
+                <ItemUnderline />
+              </NavigationMenu.Trigger>
+              <NavigationMenu.Content className={MENU_CONTENT_CLASS}>
+                <MegaMenuProducts categories={categories} featuredProduct={featuredProduct} dict={dict} />
+              </NavigationMenu.Content>
+            </NavigationMenu.Item>
+
+            <NavigationMenu.Item value="services">
+              <NavigationMenu.Trigger
+                ref={setServicesTrigger}
+                className={ITEM_CLASS}
+                data-active={isActive("/services")}
+              >
+                {dict.nav.services}
+                <ChevronDown className="size-3.5 transition-transform duration-200 motion-reduce:transition-none group-data-open:rotate-180" />
+                <ItemUnderline />
+              </NavigationMenu.Trigger>
+              <NavigationMenu.Content className={MENU_CONTENT_CLASS}>
+                <MegaMenuServices services={services} featuredService={featuredService} dict={dict} />
+              </NavigationMenu.Content>
+            </NavigationMenu.Item>
+
+            <NavLink href="/offres" label={dict.nav.offers} active={isActive("/offres")} />
+
+            <NavigationMenu.Item value="gallery">
+              <NavigationMenu.Trigger
+                ref={setGalleryTrigger}
+                className={ITEM_CLASS}
+                data-active={galleryActive}
+              >
+                {dict.nav.gallery}
+                <ChevronDown className="size-3.5 transition-transform duration-200 motion-reduce:transition-none group-data-open:rotate-180" />
+                <ItemUnderline />
+              </NavigationMenu.Trigger>
+              <NavigationMenu.Content className={MENU_CONTENT_CLASS}>
+                <div className="w-72 p-2">
+                  <GalleryMenuLink href="/galerie" title={dict.nav.gallery} description={dict.gallery.description} />
+                  <GalleryMenuLink
+                    href="/evenements"
+                    title={dict.nav.events}
+                    description={dict.events.list.description}
+                  />
+                </div>
+              </NavigationMenu.Content>
+            </NavigationMenu.Item>
+
+            <NavLink href="/a-propos" label={dict.nav.about} active={isActive("/a-propos")} />
+            <NavLink href="/contact" label={dict.nav.contact} active={isActive("/contact")} />
+          </NavigationMenu.List>
+
+          {/* Positioned under whichever trigger is open (no transition on
+              left: it must snap instantly, otherwise the very first open of
+              the day would visibly slide over from a stale 0 offset) so the
+              panel below only ever needs to animate its own collapse. */}
+          <div className="absolute top-full flex justify-start pt-2" style={{ left: panelOffset }}>
+            <NavigationMenu.Viewport
+              className={cn(
+                "relative h-(--radix-navigation-menu-viewport-height) w-(--radix-navigation-menu-viewport-width)",
+                "origin-top overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-xl ring-1 ring-foreground/5",
+                "transition-[width,height,opacity] duration-250 ease-out motion-reduce:transition-none",
+                "data-open:animate-in data-open:fade-in-0",
+                "data-closed:animate-out data-closed:fade-out-0",
+                "motion-reduce:data-open:animate-none motion-reduce:data-closed:animate-none",
+              )}
+            />
+          </div>
+        </NavigationMenu.Root>
 
         <div className="flex items-center gap-2">
           <a
@@ -90,53 +254,37 @@ export function SiteHeader({ settings }: { settings: SiteSettings }) {
           </a>
           <LanguageSwitcher className="hidden sm:flex" />
 
-          <Sheet>
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-[8px] lg:hidden"
+                className="relative rounded-[8px] lg:hidden"
                 aria-label={dict.common.openMenu}
+                aria-expanded={mobileOpen}
               >
-                <Menu className="size-5" />
+                <Menu
+                  className={cn(
+                    "size-5 transition-all duration-200 motion-reduce:transition-none",
+                    mobileOpen ? "scale-0 -rotate-45 opacity-0" : "scale-100 rotate-0 opacity-100",
+                  )}
+                />
+                <X
+                  className={cn(
+                    "absolute size-5 transition-all duration-200 motion-reduce:transition-none",
+                    mobileOpen ? "scale-100 rotate-0 opacity-100" : "scale-0 rotate-45 opacity-0",
+                  )}
+                />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
+            <SheetContent side="right" className="flex w-[300px] flex-col">
               <SheetTitle className="flex items-center gap-2 px-4 pt-4">
                 <Image src="/brand/logo-mark-160.png" alt="" width={160} height={114} className="h-8 w-auto" />
                 <span className="font-heading text-lg font-semibold">
                   Fast<span className="text-primary">Info</span>
                 </span>
               </SheetTitle>
-              <nav className="flex flex-col gap-1 p-4">
-                {NAV_LINKS.map((link) => (
-                  <SheetClose asChild key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="rounded-md px-3 py-2.5 text-base font-medium hover:bg-muted"
-                    >
-                      {link.label}
-                    </Link>
-                  </SheetClose>
-                ))}
-                <SheetClose asChild>
-                  <Link
-                    href="/contact"
-                    className="rounded-md px-3 py-2.5 text-base font-medium hover:bg-muted"
-                  >
-                    {dict.nav.contact}
-                  </Link>
-                </SheetClose>
-              </nav>
-              <div className="mt-auto flex flex-col gap-3 p-4">
-                <LanguageSwitcher className="self-start sm:hidden" />
-                <a href={`tel:${settings.phone.replace(/\s+/g, "")}`}>
-                  <Button variant="cta" className="w-full gap-2 rounded-[8px]">
-                    <Phone className="size-4" />
-                    {t(dict.common.callBrandTemplate, { brand: "FastInfo" })}
-                  </Button>
-                </a>
-              </div>
+              <MobileNav settings={settings} categories={categories} services={services} dict={dict} />
             </SheetContent>
           </Sheet>
         </div>

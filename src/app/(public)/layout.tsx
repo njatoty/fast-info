@@ -3,11 +3,20 @@ import type { ReactNode } from "react";
 import { SiteFooter } from "@/components/public/site-footer";
 import { SiteHeader } from "@/components/public/site-header";
 import { WhatsAppFab } from "@/components/public/whatsapp-fab";
+import { getFeaturedProducts, getProductCategories } from "@/lib/data/products";
+import { getServices } from "@/lib/data/services";
 import { getSiteSettings } from "@/lib/data/settings";
 import { siteConfig } from "@/lib/site-config";
 
 export default async function PublicLayout({ children }: { children: ReactNode }) {
-  const settings = await getSiteSettings();
+  const [settings, categories, featuredProducts, services] = await Promise.all([
+    getSiteSettings(),
+    getProductCategories(),
+    getFeaturedProducts(1),
+    getServices(),
+  ]);
+  const featuredProduct = featuredProducts[0] ?? null;
+  const featuredService = services.find((service) => service.isFeatured) ?? services[0] ?? null;
 
   const localBusinessJsonLd = {
     "@context": "https://schema.org",
@@ -30,7 +39,13 @@ export default async function PublicLayout({ children }: { children: ReactNode }
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
       />
-      <SiteHeader settings={settings} />
+      <SiteHeader
+        settings={settings}
+        categories={categories}
+        featuredProduct={featuredProduct}
+        services={services}
+        featuredService={featuredService}
+      />
       {/* [&>*:last-child]:flex-1 makes the page's own last section (whatever
           its tone) absorb any leftover viewport height on short pages,
           instead of leaving a blank body-background gap before the footer. */}

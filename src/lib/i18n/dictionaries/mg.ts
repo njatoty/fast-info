@@ -13,6 +13,18 @@ export const mg: Dictionary = {
     events: "Hetsika",
     about: "Momba anay",
     contact: "Contact",
+    megaMenu: {
+      products: {
+        categoriesLabel: "Sokajy",
+        featuredLabel: "Voafantina",
+        viewAll: "Jereo ny catalogue manontolo",
+      },
+      services: {
+        listLabel: "Ny serivisinay",
+        featuredLabel: "Voafantina",
+        viewAll: "Jereo ny serivisy rehetra",
+      },
+    },
   },
   common: {
     call: "Antsoy",

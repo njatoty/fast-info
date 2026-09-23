@@ -8,6 +8,18 @@ export const fr = {
     events: "Événements",
     about: "À propos",
     contact: "Contact",
+    megaMenu: {
+      products: {
+        categoriesLabel: "Catégories",
+        featuredLabel: "En vedette",
+        viewAll: "Voir tout le catalogue",
+      },
+      services: {
+        listLabel: "Nos prestations",
+        featuredLabel: "En vedette",
+        viewAll: "Voir tous les services",
+      },
+    },
   },
   common: {
     call: "Appeler",
