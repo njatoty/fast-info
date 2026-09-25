@@ -19,8 +19,12 @@ import type { Dictionary } from "@/lib/i18n/get-dictionary";
 import type { Product, ProductCategory, Service, SiteSettings } from "@/types/domain";
 
 // Shared so every trigger/link in the bar lines up pixel-for-pixel.
+// text-muted-foreground's own dark-mode value only hits ~3.2:1 against the
+// header's surface-blue (tuned for the app's generic dark bg, not this
+// brighter blue) — dark:text-surface-blue-muted overrides it to the token
+// already proven at 5.17:1 there, without touching the scrolled/light state.
 const ITEM_CLASS =
-  "group relative flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground outline-none transition-colors hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 data-active:bg-secondary data-active:text-foreground data-open:bg-secondary data-open:text-foreground";
+  "group relative flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground dark:text-surface-blue-muted outline-none transition-colors hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 data-active:bg-secondary data-active:text-foreground data-open:bg-secondary data-open:text-foreground";
 
 function NavLink({ href, label, active }: { href: string; label: string; active: boolean }) {
   return (
@@ -147,7 +151,11 @@ export function SiteHeader({
             className="h-9 w-auto transition-transform duration-300 ease-out motion-reduce:transition-none group-hover:scale-105"
           />
           <span className="font-heading text-xl font-semibold tracking-tight transition-colors duration-300">
-            Fast<span className="text-primary">Info</span>
+            {/* text-primary's dark value only hits ~4.2:1 against the header's
+                surface-blue — below AA for this size/weight. dark:text-surface-yellow
+                keeps an accent color (instead of falling back to plain white)
+                while clearing 7:1 there. */}
+            Fast<span className="text-primary dark:text-surface-yellow">Info</span>
           </span>
         </Link>
 
