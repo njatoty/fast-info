@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Blob } from "@/components/public/motion/blob";
 import { Stagger, StaggerItem } from "@/components/public/motion/stagger";
 import { ProductCard } from "@/components/public/product-card";
 import { Section } from "@/components/public/section";
@@ -27,7 +28,9 @@ export async function FeaturedProducts({ products }: { products: Product[] }) {
       />
 
       <Stagger className="mt-10 grid items-start gap-6 lg:grid-cols-2 lg:gap-8">
-        <StaggerItem>
+        <StaggerItem className="relative">
+          <Blob color="sky" className="-top-8 -left-8 size-40 sm:size-52" parallax={14} />
+          <Blob color="yellow" className="-right-8 -bottom-8 size-28 sm:size-40" delay={100} parallax={-14} />
           <ProductCard product={first} size="large" />
         </StaggerItem>
         <div className="grid grid-cols-2 gap-6 lg:gap-8">
