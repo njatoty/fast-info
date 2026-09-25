@@ -45,10 +45,10 @@ function GalleryMenuLink({ href, title, description }: { href: string; title: st
     <NavigationMenu.Link asChild>
       <Link
         href={href}
-        className="flex flex-col gap-0.5 rounded-md px-3 py-2.5 transition-colors hover:bg-accent"
+        className="flex flex-col gap-0.5 rounded-md px-3 py-2.5 text-surface-ink transition-colors hover:bg-black/5"
       >
         <span className="text-sm font-medium">{title}</span>
-        <span className="text-xs text-muted-foreground">{description}</span>
+        <span className="text-xs text-surface-ink/60">{description}</span>
       </Link>
     </NavigationMenu.Link>
   );
@@ -121,10 +121,14 @@ export function SiteHeader({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow] duration-300",
+        "sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow,color] duration-300",
         scrolled
-          ? "border-b border-border/80 bg-background/85 shadow-sm backdrop-blur-md"
-          : "border-b border-transparent bg-transparent",
+          ? "border-b border-border/80 bg-background/85 text-foreground shadow-sm backdrop-blur-md"
+          : // `dark` re-scopes every semantic token used by nav links, the
+            // language switcher, etc. below to their dark-surface values —
+            // same mechanic as Section's tone="blue" — so this only needs
+            // to set the header's own paint plus the inherited text color.
+            "dark border-b border-transparent bg-surface-blue text-surface-blue-foreground",
       )}
     >
       <div
@@ -142,7 +146,7 @@ export function SiteHeader({
             priority
             className="h-9 w-auto transition-transform duration-300 ease-out motion-reduce:transition-none group-hover:scale-105"
           />
-          <span className="font-heading text-xl font-semibold tracking-tight">
+          <span className="font-heading text-xl font-semibold tracking-tight transition-colors duration-300">
             Fast<span className="text-primary">Info</span>
           </span>
         </Link>
@@ -219,7 +223,10 @@ export function SiteHeader({
             <NavigationMenu.Viewport
               className={cn(
                 "relative h-(--radix-navigation-menu-viewport-height) w-(--radix-navigation-menu-viewport-width)",
-                "origin-top overflow-hidden rounded-2xl border border-border bg-popover text-popover-foreground shadow-xl ring-1 ring-foreground/5",
+                // Fixed, not bg-popover/text-popover-foreground: this panel
+                // must stay a light card even while the header above it is
+                // in its `.dark`-scoped blue (unscrolled) state.
+                "origin-top overflow-hidden rounded-2xl border border-black/10 bg-white text-surface-ink shadow-xl ring-1 ring-black/5",
                 "transition-[width,height,opacity] duration-250 ease-out motion-reduce:transition-none",
                 "data-open:animate-in data-open:fade-in-0",
                 "data-closed:animate-out data-closed:fade-out-0",
