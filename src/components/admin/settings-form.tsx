@@ -3,19 +3,22 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Plus, Save, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { GalleryManager } from "@/components/admin/gallery-manager";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { updateSiteSettings } from "@/lib/actions/settings";
 import { settingsSchema, type SettingsValues } from "@/lib/validation/settings";
-import type { SiteSettings } from "@/types/domain";
+import type { MediaImage, SiteSettings } from "@/types/domain";
 
 export function SettingsForm({ settings }: { settings: SiteSettings }) {
   const router = useRouter();
+  const [heroImages, setHeroImages] = useState<MediaImage[]>(settings.heroImages);
   const {
     register,
     control,
@@ -41,7 +44,7 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
   const socialsArray = useFieldArray({ control, name: "socials" });
 
   async function submit(values: SettingsValues) {
-    const result = await updateSiteSettings(values);
+    const result = await updateSiteSettings(values, heroImages);
     if (result.success) {
       toast.success("Paramètres enregistrés.");
       router.refresh();
@@ -105,6 +108,10 @@ export function SettingsForm({ settings }: { settings: SiteSettings }) {
               <FieldLabel htmlFor="settings-hero-subtitle">Sous-titre</FieldLabel>
               <Textarea id="settings-hero-subtitle" rows={3} {...register("heroSubtitle")} />
               <FieldError errors={[errors.heroSubtitle]} />
+            </Field>
+            <Field>
+              <FieldLabel>Carrousel du hero</FieldLabel>
+              <GalleryManager images={heroImages} onChange={setHeroImages} folder="hero" />
             </Field>
           </FieldGroup>
         </div>

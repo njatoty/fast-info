@@ -408,12 +408,12 @@ insert into public.event_images (event_id, path, alt, width, height, is_cover, p
   select id, 'https://images.unsplash.com/photo-1550005809-91ad75fb315f?auto=format&fit=crop&w=1600&h=1067&q=80', 'Ambiance de la célébration', 1600, 1067, false, 3 from evt;
 
 -- site_settings
-insert into public.site_settings (id, phone, whatsapp, email, address, city, opening_hours, socials, hero_title, hero_subtitle, map_url)
-values (1, '+261 34 12 345 67', '+261 34 12 345 67', 'contact@fastinfo.mg', 'Lot II M 45, Analakely', 'Antananarivo, Madagascar', '[{"day":"Lundi – Vendredi","hours":"08h00 – 18h00"},{"day":"Samedi","hours":"08h30 – 16h00"},{"day":"Dimanche","hours":"Fermé"}]'::jsonb, '[{"platform":"facebook","url":"https://facebook.com/fastinfo.mg"},{"platform":"instagram","url":"https://instagram.com/fastinfo.mg"},{"platform":"tiktok","url":"https://tiktok.com/@fastinfo.mg"}]'::jsonb, 'La technologie, les services et la créativité, réunis.', 'Téléphones, accessoires, impression et photographie d''événements : tout ce dont vous avez besoin, au même endroit à Antananarivo.', 'https://maps.google.com/?q=Analakely+Antananarivo')
+insert into public.site_settings (id, phone, whatsapp, email, address, city, opening_hours, socials, hero_title, hero_subtitle, map_url, hero_images)
+values (1, '+261 34 12 345 67', '+261 34 12 345 67', 'contact@fastinfo.mg', 'Lot II M 45, Analakely', 'Antananarivo, Madagascar', '[{"day":"Lundi – Vendredi","hours":"08h00 – 18h00"},{"day":"Samedi","hours":"08h30 – 16h00"},{"day":"Dimanche","hours":"Fermé"}]'::jsonb, '[{"platform":"facebook","url":"https://facebook.com/fastinfo.mg"},{"platform":"instagram","url":"https://instagram.com/fastinfo.mg"},{"platform":"tiktok","url":"https://tiktok.com/@fastinfo.mg"}]'::jsonb, 'La technologie, les services et la créativité, réunis.', 'Téléphones, accessoires, impression et photographie d''événements : tout ce dont vous avez besoin, au même endroit à Antananarivo.', 'https://maps.google.com/?q=Analakely+Antananarivo', '[{"url":"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&h=1280&q=80","alt":"Circuit imprimé en gros plan","width":1600,"height":1280},{"url":"https://images.unsplash.com/photo-1721333089073-215a56fd710c?auto=format&fit=crop&w=1600&h=1280&q=80","alt":"Ordinateur portable en cours de réparation","width":1600,"height":1280},{"url":"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1600&h=1280&q=80","alt":"Matériel de prise de vue photographique","width":1600,"height":1280}]'::jsonb)
 on conflict (id) do update set
   phone = excluded.phone, whatsapp = excluded.whatsapp, email = excluded.email,
   address = excluded.address, city = excluded.city, opening_hours = excluded.opening_hours,
   socials = excluded.socials, hero_title = excluded.hero_title, hero_subtitle = excluded.hero_subtitle,
-  map_url = excluded.map_url;
+  map_url = excluded.map_url, hero_images = excluded.hero_images;
 
 commit;

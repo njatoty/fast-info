@@ -32,6 +32,7 @@ export const demoPhotoIds = {
   techHeroCircuit: "1518770660439-4636190af475",
   keyboardTech: "1607083206968-13611e3d76db",
   techWorkspace: "1497215728101-856f4ea42174",
+  laptopRepair: "1721333089073-215a56fd710c",
 
   officeDesk: "1521791136064-7986c2920216",
   printerDevice: "1625961332771-3f40b0e2bdcf",
