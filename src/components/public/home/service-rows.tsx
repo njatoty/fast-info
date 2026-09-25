@@ -22,7 +22,7 @@ export async function ServiceRows({ services }: { services: Service[] }) {
           each other with no gap, and their fill alternates gray/white —
           that's what makes adjoining tiles read as one seamless surface. */}
       <Stagger className="flex flex-wrap items-end justify-end">
-        <StaggerItem className="flex h-72 w-full flex-col justify-center p-6 sm:w-1/2 sm:p-7 lg:w-1/3">
+        <StaggerItem className="flex h-72 w-full flex-col justify-center p-6 sm:w-1/2 sm:p-7 lg:w-[40%]">
           <Eyebrow>{dict.home.services.eyebrow}</Eyebrow>
           <h2 className="font-heading text-[clamp(1.75rem,1.3rem+2vw,2.5rem)] leading-[1.1] font-normal tracking-tight">
             <AnimatedUnderline>{dict.home.services.title}</AnimatedUnderline>
@@ -35,8 +35,15 @@ export async function ServiceRows({ services }: { services: Service[] }) {
 
         {services.map((service, index) => {
           const isGray = index % 2 === 0;
+          // The first two tiles share row 1 with the wider heading cell
+          // (40% + 30% + 30%), so they stay put beside it instead of
+          // wrapping — everything past that goes back to an even 1/3.
+          const isBesideHeading = index < 2;
           return (
-            <StaggerItem key={service.id} className="w-full sm:w-1/2 lg:w-1/3">
+            <StaggerItem
+              key={service.id}
+              className={cn("w-full sm:w-1/2", isBesideHeading ? "lg:w-[30%]" : "lg:w-1/3")}
+            >
               <HoverLift className="h-full">
                 <Link
                   href={`/services/${service.slug}`}
