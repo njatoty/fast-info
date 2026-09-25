@@ -18,6 +18,7 @@ export async function Hero({ settings }: { settings: SiteSettings }) {
 
   return (
     <Section
+      tone="blue"
       className="pt-8 pb-16 sm:pt-14 sm:pb-24 lg:pt-16 lg:pb-24"
       containerClassName="grid items-center gap-12 lg:grid-cols-12 lg:gap-10"
     >
@@ -75,7 +76,7 @@ export async function Hero({ settings }: { settings: SiteSettings }) {
                   alt={dict.home.hero.imageAlt2}
                   aspectRatio={4 / 5}
                   sizes="(min-width: 1024px) 25vw, 45vw"
-                  wrapperClassName="rounded-[1.25rem] ring-4 ring-background"
+                  wrapperClassName="rounded-[1.25rem] ring-4 ring-white"
                 />
               </div>
             </div>

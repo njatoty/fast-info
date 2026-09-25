@@ -23,7 +23,11 @@ const buttonVariants = cva(
         cta: "rounded-full border-transparent bg-surface-yellow text-surface-yellow-foreground shadow-sm hover:bg-surface-yellow/90",
         ink: "rounded-full border-transparent bg-surface-ink text-surface-ink-foreground shadow-sm hover:bg-surface-ink/90",
         sky: "rounded-full border-transparent bg-surface-sky text-surface-sky-foreground shadow-sm hover:bg-surface-sky/90",
-        soft: "rounded-full border-transparent bg-secondary text-secondary-foreground uppercase tracking-wide hover:bg-secondary/70",
+        // Fixed (not bg-secondary/text-secondary-foreground): this pill must
+        // look the same light-gray regardless of an ambient `.dark`-scoped
+        // blue Section (see Section's tone="blue"), which would otherwise
+        // flip secondary to its dark-surface value.
+        soft: "rounded-full border-transparent bg-gray-100 text-gray-900 uppercase tracking-wide hover:bg-gray-200",
       },
       size: {
         default:
