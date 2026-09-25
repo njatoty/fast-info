@@ -21,7 +21,7 @@ export async function ServiceRows({ services }: { services: Service[] }) {
           cell (not a separate header above it), tiles are flush against
           each other with no gap, and their fill alternates gray/white —
           that's what makes adjoining tiles read as one seamless surface. */}
-      <Stagger className="flex flex-wrap items-end">
+      <Stagger className="flex flex-wrap items-end justify-end">
         <StaggerItem className="flex h-72 w-full flex-col justify-center p-6 sm:w-1/2 sm:p-7 lg:w-1/3">
           <Eyebrow>{dict.home.services.eyebrow}</Eyebrow>
           <h2 className="font-heading text-[clamp(1.75rem,1.3rem+2vw,2.5rem)] leading-[1.1] font-normal tracking-tight">
