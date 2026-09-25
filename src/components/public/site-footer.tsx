@@ -30,7 +30,6 @@ export async function SiteFooter({ settings }: { settings: SiteSettings }) {
       <Blob color="sky" className="-top-20 -right-20 size-72 opacity-20" parallax={20} />
       <Container className="grid gap-8 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:py-20">
         <div className="relative overflow-hidden rounded-3xl bg-surface-yellow p-6 text-surface-yellow-foreground lg:col-span-1">
-          <Blob color="blue" className="-right-14 -bottom-16 size-28 opacity-90" />
           <Link href="/" className="relative flex items-center gap-2.5">
             <Image src="/brand/logo-mark-160.png" alt="" width={160} height={114} className="h-9 w-auto" />
             <span className="font-heading text-xl font-semibold tracking-tight">
