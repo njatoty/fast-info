@@ -5,10 +5,14 @@ import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/supabase/guard";
 import { createClient } from "@/lib/supabase/server";
 import { settingsSchema, type SettingsValues } from "@/lib/validation/settings";
+import type { MediaImage } from "@/types/domain";
 
 type ActionResult = { success: true } | { success: false; error: string };
 
-export async function updateSiteSettings(values: SettingsValues): Promise<ActionResult> {
+export async function updateSiteSettings(
+  values: SettingsValues,
+  heroImages: MediaImage[],
+): Promise<ActionResult> {
   await requireAdmin();
   const parsed = settingsSchema.safeParse(values);
   if (!parsed.success) {
@@ -25,6 +29,13 @@ export async function updateSiteSettings(values: SettingsValues): Promise<Action
     city: parsed.data.city,
     hero_title: parsed.data.heroTitle,
     hero_subtitle: parsed.data.heroSubtitle,
+    hero_images: heroImages.map(({ url, alt, width, height, blurDataURL }) => ({
+      url,
+      alt,
+      width,
+      height,
+      ...(blurDataURL ? { blurDataURL } : {}),
+    })),
     map_url: parsed.data.mapUrl || null,
     opening_hours: parsed.data.openingHours,
     socials: parsed.data.socials,

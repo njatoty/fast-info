@@ -3,18 +3,31 @@ import Link from "next/link";
 
 import { Eyebrow } from "@/components/public/eyebrow";
 import { Blob } from "@/components/public/motion/blob";
+import { HeroCarousel } from "@/components/public/motion/hero-carousel";
 import { Stagger, StaggerItem } from "@/components/public/motion/stagger";
 import { Reveal } from "@/components/public/reveal";
 import { Section } from "@/components/public/section";
-import { SmartImage } from "@/components/media/smart-image";
 import { Button } from "@/components/ui/button";
 import { demoImage } from "@/lib/demo/images";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { SiteSettings } from "@/types/domain";
 
+const FALLBACK_HERO_IMAGE = {
+  id: "hero-fallback",
+  url: demoImage("techHeroCircuit", 1600, 1280),
+  alt: "",
+  width: 1600,
+  height: 1280,
+  position: 0,
+};
+
 export async function Hero({ settings }: { settings: SiteSettings }) {
   const dict = await getDictionary();
   const titleWords = settings.heroTitle.split(" ");
+  const heroImages =
+    settings.heroImages.length > 0
+      ? settings.heroImages
+      : [{ ...FALLBACK_HERO_IMAGE, alt: dict.home.hero.imageAlt1 }];
 
   return (
     <Section
@@ -61,25 +74,7 @@ export async function Hero({ settings }: { settings: SiteSettings }) {
             <Blob color="blue" className="-right-14 -bottom-16 size-56 sm:size-72" delay={100} parallax={-20} />
             <Blob color="pink" className="bottom-6 left-1/3 size-24 sm:size-32" delay={200} />
 
-            <div className="relative aspect-6/5 w-full sm:aspect-16/10 lg:aspect-5/4">
-              <SmartImage
-                src={demoImage("techHeroCircuit", 1600, 1280)}
-                alt={dict.home.hero.imageAlt1}
-                aspectRatio={5 / 4}
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                wrapperClassName="absolute inset-0 rounded-[1.25rem] shadow-xl"
-                priority
-              />
-              <div className="absolute -bottom-6 -left-4 w-[45%] sm:-bottom-8 sm:-left-8 sm:w-[42%]">
-                <SmartImage
-                  src={demoImage("cameraGear", 900, 1125)}
-                  alt={dict.home.hero.imageAlt2}
-                  aspectRatio={4 / 5}
-                  sizes="(min-width: 1024px) 25vw, 45vw"
-                  wrapperClassName="rounded-[1.25rem] ring-4 ring-white"
-                />
-              </div>
-            </div>
+            <HeroCarousel images={heroImages} className="relative" />
           </div>
         </Reveal>
       </div>

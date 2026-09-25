@@ -317,6 +317,7 @@ export interface Database {
           socials: Json;
           hero_title: string;
           hero_subtitle: string;
+          hero_images: Json;
           map_url: string | null;
           updated_at: string;
         };
@@ -331,6 +332,7 @@ export interface Database {
           socials?: Json;
           hero_title?: string;
           hero_subtitle?: string;
+          hero_images?: Json;
           map_url?: string | null;
           updated_at?: string;
         };

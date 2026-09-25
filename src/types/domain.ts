@@ -108,5 +108,6 @@ export interface SiteSettings {
   socials: SocialLink[];
   heroTitle: string;
   heroSubtitle: string;
+  heroImages: MediaImage[];
   mapUrl: string | null;
 }

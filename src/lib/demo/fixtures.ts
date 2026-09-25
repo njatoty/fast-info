@@ -594,6 +594,11 @@ export const demoSiteSettings: SiteSettings = {
   heroTitle: "La technologie, les services et la créativité, réunis.",
   heroSubtitle:
     "Téléphones, accessoires, impression et photographie d'événements : tout ce dont vous avez besoin, au même endroit à Antananarivo.",
+  heroImages: [
+    img("techHeroCircuit", 1600, 1280, "Circuit imprimé en gros plan", 0),
+    img("laptopRepair", 1600, 1280, "Ordinateur portable en cours de réparation", 1),
+    img("cameraGear", 1600, 1280, "Matériel de prise de vue photographique", 2),
+  ],
   mapUrl:
     "https://www.google.com/maps/place/Fast+Info/@-19.386009,47.4283,17z/data=!4m15!1m8!3m7!1s0x21faa9c5b1911791:0xa21fbfe6eaceb529!2sDistrict+d'Ambatolampy!3b1!8m2!3d-19.3836846!4d47.4392352!16s%2Fm%2F02qc4np!3m5!1s0x21faa9001d461591:0x83cac13fea74b929!8m2!3d-19.3864701!4d47.4309947!16s%2Fg%2F11x32v_hrh?hl=fr&entry=ttu&g_ep=EgoyMDI2MDkyMC4wIKXMDSoASAFQAw%3D%3D",
 };
