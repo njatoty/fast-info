@@ -34,7 +34,7 @@ export async function Hero({ settings }: { settings: SiteSettings }) {
           </Stagger>
         </h1>
         <Reveal delay={200}>
-          <p className="mt-6 max-w-md text-balance text-base text-muted-foreground sm:text-lg">
+          <p className="mt-6 max-w-md text-balance text-base text-surface-blue-muted sm:text-lg">
             {settings.heroSubtitle}
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
