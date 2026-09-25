@@ -1,20 +1,20 @@
-import { cn } from "cn";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
-import { Blob } from "@/components/public/motion/blob";
-import { Reveal } from "@/components/public/reveal";
+import { HoverLift } from "@/components/public/motion/hover-lift";
+import { Stagger, StaggerItem } from "@/components/public/motion/stagger";
 import { Section } from "@/components/public/section";
 import { SectionHeading } from "@/components/public/section-heading";
-import { SmartImage } from "@/components/media/smart-image";
 import { Button } from "@/components/ui/button";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { Service } from "@/types/domain";
 
-const ROW_PALETTES = [
-  ["sky", "blue"],
-  ["yellow", "orange"],
-  ["pink", "yellow"],
+const DOT_COLORS = [
+  ["bg-surface-sky", "bg-surface-yellow"],
+  ["bg-surface-orange", "bg-surface-blue"],
+  ["bg-surface-pink", "bg-surface-sky"],
+  ["bg-surface-yellow", "bg-surface-orange"],
+  ["bg-surface-blue", "bg-surface-pink"],
 ] as const;
 
 export async function ServiceRows({ services }: { services: Service[] }) {
@@ -27,41 +27,42 @@ export async function ServiceRows({ services }: { services: Service[] }) {
         eyebrow={dict.home.services.eyebrow}
         title={dict.home.services.title}
         description={dict.home.services.description}
+        action={
+          <Button variant="outline" asChild className="rounded-full">
+            <Link href="/services">{dict.nav.megaMenu.services.viewAll}</Link>
+          </Button>
+        }
       />
 
-      <div className="mt-12 flex flex-col gap-16 lg:gap-20">
+      <Stagger className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service, index) => {
-          const [colorA, colorB] = ROW_PALETTES[index % ROW_PALETTES.length];
+          const [dotA, dotB] = DOT_COLORS[index % DOT_COLORS.length];
           return (
-            <Reveal key={service.id} className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
-              <div className={cn("relative", index % 2 === 1 ? "lg:order-2" : undefined)}>
-                <Blob color={colorA} className="-top-8 -left-8 size-36 sm:size-52" parallax={14} />
-                <Blob color={colorB} className="-right-8 -bottom-8 size-28 sm:size-40" delay={100} parallax={-14} />
-                <SmartImage
-                  src={service.coverImage?.url}
-                  alt={service.coverImage?.alt ?? service.title}
-                  blurDataURL={service.coverImage?.blurDataURL}
-                  aspectRatio={16 / 10}
-                  wrapperClassName="relative rounded-2xl"
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                />
-              </div>
-              <div className={index % 2 === 1 ? "lg:order-1" : undefined}>
-                <h3 className="font-heading text-2xl font-normal tracking-tight sm:text-3xl">
-                  {service.title}
-                </h3>
-                <p className="mt-4 max-w-md text-muted-foreground">{service.description}</p>
-                <Button variant="soft" size="sm" asChild className="mt-5 gap-1.5">
-                  <Link href={`/services/${service.slug}`}>
-                    {dict.home.services.cta}
-                    <ArrowRight className="size-3.5" />
-                  </Link>
-                </Button>
-              </div>
-            </Reveal>
+            <StaggerItem key={service.id}>
+              <HoverLift>
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="group relative flex h-full flex-col rounded-2xl bg-secondary p-6 sm:p-7"
+                >
+                  <span className="flex items-center gap-1.5" aria-hidden>
+                    <span className={`size-1.5 rounded-full ${dotA}`} />
+                    <span className={`size-1.5 rounded-full ${dotB}`} />
+                  </span>
+                  <h3 className="mt-5 max-w-[14rem] font-heading text-xl font-normal tracking-tight sm:text-2xl">
+                    {service.title}
+                  </h3>
+                  <p className="mt-3 max-w-xs text-sm text-muted-foreground">
+                    {service.shortDescription}
+                  </p>
+                  <span className="mt-8 flex size-10 items-center justify-center self-end rounded-full bg-surface-ink text-surface-ink-foreground transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:translate-x-1">
+                    <ArrowUpRight className="size-4" />
+                  </span>
+                </Link>
+              </HoverLift>
+            </StaggerItem>
           );
         })}
-      </div>
+      </Stagger>
     </Section>
   );
 }
