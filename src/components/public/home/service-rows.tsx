@@ -21,14 +21,14 @@ export async function ServiceRows({ services }: { services: Service[] }) {
           cell (not a separate header above it), tiles are flush against
           each other with no gap, and their fill alternates gray/white —
           that's what makes adjoining tiles read as one seamless surface. */}
-      <Stagger className="grid auto-rows-fr sm:grid-cols-2 lg:grid-cols-3">
-        <StaggerItem className="flex h-72 flex-col justify-center p-6 sm:p-7">
+      <Stagger className="flex flex-wrap items-end">
+        <StaggerItem className="flex h-72 w-full flex-col justify-center p-6 sm:w-1/2 sm:p-7 lg:w-1/3">
           <Eyebrow>{dict.home.services.eyebrow}</Eyebrow>
           <h2 className="font-heading text-[clamp(1.75rem,1.3rem+2vw,2.5rem)] leading-[1.1] font-normal tracking-tight">
             <AnimatedUnderline>{dict.home.services.title}</AnimatedUnderline>
           </h2>
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">{dict.home.services.description}</p>
-          <Button variant="outline" asChild className="mt-6 w-fit rounded-full">
+          <Button variant="outline" asChild className="my-6 w-fit rounded-full">
             <Link href="/services">{dict.nav.megaMenu.services.viewAll}</Link>
           </Button>
         </StaggerItem>
@@ -36,7 +36,7 @@ export async function ServiceRows({ services }: { services: Service[] }) {
         {services.map((service, index) => {
           const isGray = index % 2 === 0;
           return (
-            <StaggerItem key={service.id}>
+            <StaggerItem key={service.id} className="w-full sm:w-1/2 lg:w-1/3">
               <HoverLift className="h-full">
                 <Link
                   href={`/services/${service.slug}`}
@@ -45,7 +45,7 @@ export async function ServiceRows({ services }: { services: Service[] }) {
                     isGray ? "bg-secondary" : "bg-background",
                   )}
                 >
-                  <h3 className="max-w-48 font-heading text-xl font-normal tracking-tight sm:text-2xl">
+                  <h3 className="max-w-48 font-heading text-xl font-light tracking-tight sm:text-2xl">
                     {service.title}
                   </h3>
                   {/* Hidden until hover, in place of always-on body copy — keeps
