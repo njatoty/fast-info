@@ -21,8 +21,8 @@ export async function ServiceRows({ services }: { services: Service[] }) {
           cell (not a separate header above it), tiles are flush against
           each other with no gap, and their fill alternates gray/white —
           that's what makes adjoining tiles read as one seamless surface. */}
-      <Stagger className="grid sm:grid-cols-2 lg:grid-cols-3">
-        <StaggerItem className="flex flex-col justify-center p-6 sm:p-7">
+      <Stagger className="grid auto-rows-fr sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerItem className="flex h-72 flex-col justify-center p-6 sm:p-7">
           <Eyebrow>{dict.home.services.eyebrow}</Eyebrow>
           <h2 className="font-heading text-[clamp(1.75rem,1.3rem+2vw,2.5rem)] leading-[1.1] font-normal tracking-tight">
             <AnimatedUnderline>{dict.home.services.title}</AnimatedUnderline>
@@ -41,13 +41,19 @@ export async function ServiceRows({ services }: { services: Service[] }) {
                 <Link
                   href={`/services/${service.slug}`}
                   className={cn(
-                    "group flex h-full min-h-56 flex-col p-6 sm:p-7",
+                    "group flex h-72 flex-col p-6 sm:p-7",
                     isGray ? "bg-secondary" : "bg-background",
                   )}
                 >
-                  <h3 className="max-w-[12rem] font-heading text-xl font-normal tracking-tight sm:text-2xl">
+                  <h3 className="max-w-48 font-heading text-xl font-normal tracking-tight sm:text-2xl">
                     {service.title}
                   </h3>
+                  {/* Hidden until hover, in place of always-on body copy — keeps
+                      the tile's resting state as clean as the reference's
+                      title-plus-arrow tiles while still surfacing the detail. */}
+                  <p className="mt-3 max-w-52 translate-y-1 text-sm text-muted-foreground opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                    {service.shortDescription}
+                  </p>
                   <span
                     className={cn(
                       "mt-auto flex size-11 items-center justify-center self-end rounded-full transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:translate-x-1",
