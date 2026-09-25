@@ -38,7 +38,9 @@ export function LanguageSwitcher({ className }: { className?: string }) {
             "rounded-full px-2 py-1 uppercase transition-colors",
             locale === code
               ? "bg-primary text-primary-foreground"
-              : "text-muted-foreground hover:text-foreground",
+              : // dark:text-surface-blue-muted: see ITEM_CLASS in site-header.tsx —
+                // same fix, this renders inside the header's blue scope too.
+                "text-muted-foreground hover:text-foreground dark:text-surface-blue-muted",
           )}
         >
           {code}

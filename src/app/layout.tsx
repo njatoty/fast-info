@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Chakra_Petch, Poppins } from "next/font/google";
+import { Outfit, Poppins } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { LocaleProvider } from "@/components/providers/locale-provider";
@@ -19,10 +19,10 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const chakraPetch = Chakra_Petch({
-  variable: "--font-chakra-petch",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
@@ -71,7 +71,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       lang={locale}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
-      className={`${poppins.variable} ${chakraPetch.variable}`}
+      className={`${poppins.variable} ${outfit.variable}`}
     >
       <body className="min-h-svh flex flex-col antialiased">
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light" disableTransitionOnChange>

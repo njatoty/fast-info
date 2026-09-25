@@ -14,7 +14,18 @@ export async function OfferCard({ offer }: { offer: Offer }) {
       : null;
 
   return (
-    <div className="group overflow-hidden rounded-[8px] border border-surface-blue-border bg-white/8">
+    // Fixed (non-theme-relative) colors throughout: this card always sits
+    // inside OffersBand's `.dark`-scoped blue Section, so semantic tokens
+    // like bg-card/text-foreground would resolve to their dark-mode values
+    // (made for a dark surface) instead of these — a white "browser" card
+    // needs colors that don't flip with the ambient theme.
+    <div className="group overflow-hidden rounded-2xl bg-white shadow-lg shadow-black/10">
+      {/* Browser-chrome bar, Overpass "profile card" motif. */}
+      <div className="flex items-center gap-1.5 border-b border-black/10 px-4 py-3">
+        <span className="size-2 rounded-full bg-surface-pink" aria-hidden />
+        <span className="size-2 rounded-full bg-surface-yellow" aria-hidden />
+        <span className="size-2 rounded-full bg-surface-sky" aria-hidden />
+      </div>
       <SmartImage
         src={offer.image?.url}
         alt={offer.image?.alt ?? offer.title}
@@ -25,26 +36,26 @@ export async function OfferCard({ offer }: { offer: Offer }) {
       />
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="font-heading text-lg font-medium">{offer.title}</h3>
+          <h3 className="font-heading text-lg font-medium text-surface-ink">{offer.title}</h3>
           {discountPercent ? (
-            <span className="shrink-0 rounded-[8px] bg-surface-yellow px-2.5 py-1 text-xs font-semibold text-surface-yellow-foreground">
+            <span className="shrink-0 rounded-full bg-surface-yellow px-2.5 py-1 text-xs font-semibold text-surface-yellow-foreground">
               -{discountPercent}%
             </span>
           ) : null}
         </div>
-        <p className="mt-2 text-sm text-surface-blue-muted">{offer.description}</p>
+        <p className="mt-2 text-sm text-surface-ink/60">{offer.description}</p>
         {hasPrices ? (
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="text-lg font-medium text-primary">
+            <span className="text-lg font-medium text-surface-blue">
               {formatCurrency(offer.promoPrice!)}
             </span>
-            <span className="text-sm text-surface-blue-muted line-through">
+            <span className="text-sm text-surface-ink/50 line-through">
               {formatCurrency(offer.originalPrice!)}
             </span>
           </div>
         ) : null}
         {offer.endsAt ? (
-          <p className="mt-3 text-xs text-surface-blue-muted/70">
+          <p className="mt-3 text-xs text-surface-ink/40">
             {t(dict.offers.validUntilTemplate, { date: formatDateRange(offer.endsAt, null, locale) })}
           </p>
         ) : null}

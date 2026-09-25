@@ -18,9 +18,16 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        // Public-site marketing CTA only — high-contrast yellow.
-        // Admin never references this variant, so it's purely additive.
-        cta: "rounded-[8px] border-black/10 bg-surface-yellow text-surface-yellow-foreground shadow-sm hover:bg-surface-yellow/90",
+        // Public-site marketing variants only — pill-shaped, Overpass-style.
+        // Admin never references these, so they're purely additive.
+        cta: "rounded-full border-transparent bg-surface-yellow text-surface-yellow-foreground shadow-sm hover:bg-surface-yellow/90",
+        ink: "rounded-full border-transparent bg-surface-ink text-surface-ink-foreground shadow-sm hover:bg-surface-ink/90",
+        sky: "rounded-full border-transparent bg-surface-sky text-surface-sky-foreground shadow-sm hover:bg-surface-sky/90",
+        // Fixed (not bg-secondary/text-secondary-foreground): this pill must
+        // look the same light-gray regardless of an ambient `.dark`-scoped
+        // blue Section (see Section's tone="blue"), which would otherwise
+        // flip secondary to its dark-surface value.
+        soft: "rounded-full border-transparent bg-gray-100 text-gray-900 uppercase tracking-wide hover:bg-gray-200",
       },
       size: {
         default:

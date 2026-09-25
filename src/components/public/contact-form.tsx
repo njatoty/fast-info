@@ -43,7 +43,7 @@ export function ContactForm({ defaultSubject }: { defaultSubject?: string }) {
       <div className="border border-border bg-card p-8 text-center">
         <p className="font-medium">{dict.contact.form.successTitle}</p>
         <p className="mt-2 text-sm text-muted-foreground">{dict.contact.form.successDescription}</p>
-        <Button variant="outline" className="mt-6 rounded-[8px]" onClick={() => setSubmitted(false)}>
+        <Button variant="outline" className="mt-6 rounded-full" onClick={() => setSubmitted(false)}>
           {dict.contact.form.sendAnother}
         </Button>
       </div>
@@ -107,7 +107,7 @@ export function ContactForm({ defaultSubject }: { defaultSubject?: string }) {
           variant="cta"
           size="lg"
           disabled={isSubmitting}
-          className="w-fit gap-2 rounded-[8px]"
+          className="w-fit gap-2 rounded-full"
         >
           {isSubmitting ? (
             <Loader2 className="size-4 animate-spin" />

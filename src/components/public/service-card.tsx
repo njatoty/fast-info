@@ -5,17 +5,21 @@ import { SmartImage } from "@/components/media/smart-image";
 import type { Service } from "@/types/domain";
 
 // Bottom-left corner sliced off at 45° — the same cut on the image and its
-// accent block behind it is what makes the yellow peek through as a notch
-// instead of just a drop-shadow offset.
+// accent block behind it is what makes the accent colour peek through as a
+// notch instead of just a drop-shadow offset.
 const CARD_CLIP = "[clip-path:polygon(0_0,100%_0,100%_100%,28px_100%,0_calc(100%-28px))]";
 
-export function ServiceCard({ service }: { service: Service }) {
+const ACCENTS = ["bg-surface-yellow", "bg-surface-sky", "bg-surface-pink", "bg-surface-orange"] as const;
+
+export function ServiceCard({ service, accentIndex = 0 }: { service: Service; accentIndex?: number }) {
+  const accent = ACCENTS[accentIndex % ACCENTS.length];
+
   return (
     <Link href={`/services/${service.slug}`} className="group block">
       <div className="relative">
         <div
           aria-hidden
-          className={`absolute inset-0 translate-x-2 translate-y-2 bg-surface-yellow transition-transform duration-500 ease-out group-hover:translate-x-3 group-hover:translate-y-3 ${CARD_CLIP}`}
+          className={`absolute inset-0 translate-x-2 translate-y-2 ${accent} transition-transform duration-500 ease-out group-hover:translate-x-3 group-hover:translate-y-3 ${CARD_CLIP}`}
         />
         <SmartImage
           src={service.coverImage?.url}

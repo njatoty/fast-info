@@ -24,19 +24,19 @@ export async function InquiryActions({
 
   return (
     <div className="flex flex-wrap gap-3">
-      <Button variant="cta" size="lg" asChild className="gap-2 rounded-[8px]">
+      <Button variant="cta" size="lg" asChild className="gap-2 rounded-full">
         <a href={`tel:${phone.replace(/\s+/g, "")}`}>
           <Phone className="size-4" />
           {dict.inquiry.call}
         </a>
       </Button>
-      <Button size="lg" variant="outline" asChild className="gap-2 rounded-[8px]">
+      <Button size="lg" variant="outline" asChild className="gap-2 rounded-full">
         <a href={toWhatsAppLink(whatsapp, message)} target="_blank" rel="noopener noreferrer">
           <MessageCircle className="size-4" />
           {dict.inquiry.whatsapp}
         </a>
       </Button>
-      <Button size="lg" variant="ghost" asChild className="gap-2 rounded-[8px]">
+      <Button size="lg" variant="ghost" asChild className="gap-2 rounded-full">
         <Link href={contactHref}>
           <Send className="size-4" />
           {dict.inquiry.form}

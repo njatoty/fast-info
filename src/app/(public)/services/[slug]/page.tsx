@@ -77,7 +77,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 alt={image.alt}
                 blurDataURL={image.blurDataURL}
                 aspectRatio={index === 0 ? 21 / 9 : 4 / 3}
-                wrapperClassName="rounded-[8px]"
+                wrapperClassName="rounded-2xl"
                 sizes={index === 0 ? "100vw" : "(min-width: 640px) 50vw, 100vw"}
               />
             </Reveal>

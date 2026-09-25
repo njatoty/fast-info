@@ -19,17 +19,12 @@ import type { Dictionary } from "@/lib/i18n/get-dictionary";
 import type { Product, ProductCategory, Service, SiteSettings } from "@/types/domain";
 
 // Shared so every trigger/link in the bar lines up pixel-for-pixel.
+// text-muted-foreground's own dark-mode value only hits ~3.2:1 against the
+// header's surface-blue (tuned for the app's generic dark bg, not this
+// brighter blue) — dark:text-surface-blue-muted overrides it to the token
+// already proven at 5.17:1 there, without touching the scrolled/light state.
 const ITEM_CLASS =
-  "group relative flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 data-active:text-foreground data-open:text-foreground";
-
-function ItemUnderline() {
-  return (
-    <span
-      aria-hidden
-      className="absolute inset-x-3 -bottom-px h-px scale-x-0 bg-primary transition-transform duration-200 ease-out motion-reduce:transition-none group-hover:scale-x-100 group-data-active:scale-x-100"
-    />
-  );
-}
+  "group relative flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground dark:text-surface-blue-muted outline-none transition-colors hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 data-active:bg-secondary data-active:text-foreground data-open:bg-secondary data-open:text-foreground";
 
 function NavLink({ href, label, active }: { href: string; label: string; active: boolean }) {
   return (
@@ -37,7 +32,6 @@ function NavLink({ href, label, active }: { href: string; label: string; active:
       <NavigationMenu.Link asChild active={active}>
         <Link href={href} className={ITEM_CLASS}>
           {label}
-          <ItemUnderline />
         </Link>
       </NavigationMenu.Link>
     </NavigationMenu.Item>
@@ -55,10 +49,10 @@ function GalleryMenuLink({ href, title, description }: { href: string; title: st
     <NavigationMenu.Link asChild>
       <Link
         href={href}
-        className="flex flex-col gap-0.5 rounded-md px-3 py-2.5 transition-colors hover:bg-accent"
+        className="flex flex-col gap-0.5 rounded-md px-3 py-2.5 text-surface-ink transition-colors hover:bg-black/5"
       >
         <span className="text-sm font-medium">{title}</span>
-        <span className="text-xs text-muted-foreground">{description}</span>
+        <span className="text-xs text-surface-ink/60">{description}</span>
       </Link>
     </NavigationMenu.Link>
   );
@@ -131,10 +125,14 @@ export function SiteHeader({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow] duration-300",
+        "sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow,color] duration-300",
         scrolled
-          ? "border-b border-border/80 bg-background/85 shadow-sm backdrop-blur-md"
-          : "border-b border-transparent bg-transparent",
+          ? "border-b border-border/80 bg-background/85 text-foreground shadow-sm backdrop-blur-md"
+          : // `dark` re-scopes every semantic token used by nav links, the
+            // language switcher, etc. below to their dark-surface values —
+            // same mechanic as Section's tone="blue" — so this only needs
+            // to set the header's own paint plus the inherited text color.
+            "dark border-b border-transparent bg-surface-blue text-surface-blue-foreground",
       )}
     >
       <div
@@ -152,8 +150,12 @@ export function SiteHeader({
             priority
             className="h-9 w-auto transition-transform duration-300 ease-out motion-reduce:transition-none group-hover:scale-105"
           />
-          <span className="font-heading text-xl font-semibold tracking-tight">
-            Fast<span className="text-primary">Info</span>
+          <span className="font-heading text-xl font-semibold tracking-tight transition-colors duration-300">
+            {/* text-primary's dark value only hits ~4.2:1 against the header's
+                surface-blue — below AA for this size/weight. dark:text-surface-yellow
+                keeps an accent color (instead of falling back to plain white)
+                while clearing 7:1 there. */}
+            Fast<span className="text-primary dark:text-surface-yellow">Info</span>
           </span>
         </Link>
 
@@ -174,7 +176,6 @@ export function SiteHeader({
               >
                 {dict.nav.products}
                 <ChevronDown className="size-3.5 transition-transform duration-200 motion-reduce:transition-none group-data-open:rotate-180" />
-                <ItemUnderline />
               </NavigationMenu.Trigger>
               <NavigationMenu.Content className={MENU_CONTENT_CLASS}>
                 <MegaMenuProducts categories={categories} featuredProduct={featuredProduct} dict={dict} />
@@ -189,7 +190,6 @@ export function SiteHeader({
               >
                 {dict.nav.services}
                 <ChevronDown className="size-3.5 transition-transform duration-200 motion-reduce:transition-none group-data-open:rotate-180" />
-                <ItemUnderline />
               </NavigationMenu.Trigger>
               <NavigationMenu.Content className={MENU_CONTENT_CLASS}>
                 <MegaMenuServices services={services} featuredService={featuredService} dict={dict} />
@@ -206,7 +206,6 @@ export function SiteHeader({
               >
                 {dict.nav.gallery}
                 <ChevronDown className="size-3.5 transition-transform duration-200 motion-reduce:transition-none group-data-open:rotate-180" />
-                <ItemUnderline />
               </NavigationMenu.Trigger>
               <NavigationMenu.Content className={MENU_CONTENT_CLASS}>
                 <div className="w-72 p-2">
@@ -232,7 +231,10 @@ export function SiteHeader({
             <NavigationMenu.Viewport
               className={cn(
                 "relative h-(--radix-navigation-menu-viewport-height) w-(--radix-navigation-menu-viewport-width)",
-                "origin-top overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-xl ring-1 ring-foreground/5",
+                // Fixed, not bg-popover/text-popover-foreground: this panel
+                // must stay a light card even while the header above it is
+                // in its `.dark`-scoped blue (unscrolled) state.
+                "origin-top overflow-hidden rounded-2xl border border-black/10 bg-white text-surface-ink shadow-xl ring-1 ring-black/5",
                 "transition-[width,height,opacity] duration-250 ease-out motion-reduce:transition-none",
                 "data-open:animate-in data-open:fade-in-0",
                 "data-closed:animate-out data-closed:fade-out-0",
@@ -247,7 +249,7 @@ export function SiteHeader({
             href={`tel:${settings.phone.replace(/\s+/g, "")}`}
             className="hidden items-center gap-2 text-sm font-medium sm:flex"
           >
-            <Button variant="cta" size="sm" className="gap-2 rounded-[8px]">
+            <Button variant="sky" size="sm" className="gap-2 rounded-full">
               <Phone className="size-3.5" />
               {dict.common.call}
             </Button>
@@ -259,7 +261,7 @@ export function SiteHeader({
               <Button
                 variant="ghost"
                 size="icon"
-                className="relative rounded-[8px] lg:hidden"
+                className="relative rounded-full lg:hidden"
                 aria-label={dict.common.openMenu}
                 aria-expanded={mobileOpen}
               >

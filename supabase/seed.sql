@@ -254,6 +254,15 @@ insert into public.service_images (service_id, path, alt, width, height, is_cove
   select id, 'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&h=1200&q=80', 'Alliances de mariage', 1200, 1200, false, 1 from svc
   union all
   select id, 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=1400&h=1050&q=80', 'Couple de mariés', 1400, 1050, false, 2 from svc;
+with svc as (
+  insert into public.services (id, title, slug, short_description, description, is_featured, is_published, position)
+  values (gen_random_uuid(), 'Réparation téléphone & PC', 'reparation-telephone-pc', 'Diagnostic rapide et réparation soignée de vos appareils.', 'Écran fissuré, batterie fatiguée, panne logicielle : nos techniciens diagnostiquent et réparent smartphones et ordinateurs avec des pièces de qualité, pour un délai annoncé à l''avance.', true, true, 0)
+  returning id
+)
+insert into public.service_images (service_id, path, alt, width, height, is_cover, position)
+  select id, 'https://images.unsplash.com/photo-1539331586018-346b53b2aaa4?auto=format&fit=crop&w=1600&h=1067&q=80', 'Technicien réparant l''écran d''un smartphone', 1600, 1067, true, 0 from svc
+  union all
+  select id, 'https://images.unsplash.com/photo-1721333089073-215a56fd710c?auto=format&fit=crop&w=1200&h=1500&q=80', 'Réparation des composants internes d''un ordinateur portable', 1200, 1500, false, 1 from svc;
 
 -- offers
 insert into public.offers (id, title, description, image_path, image_alt, image_width, image_height, original_price, promo_price, starts_at, ends_at, is_active, position)

@@ -13,14 +13,14 @@ export async function GalleryTeaser({ items }: { items: GalleryItem[] }) {
   const dict = await getDictionary();
 
   return (
-    <Section bleed edge="top">
+    <Section bleed edge="top" tone="muted">
       <Container size="wide">
         <SectionHeading
           eyebrow={dict.home.gallery.eyebrow}
           title={dict.home.gallery.title}
           description={dict.home.gallery.description}
           action={
-            <Button variant="outline" asChild className="rounded-[8px]">
+            <Button variant="outline" asChild className="rounded-full">
               <Link href="/galerie">{dict.home.gallery.cta}</Link>
             </Button>
           }

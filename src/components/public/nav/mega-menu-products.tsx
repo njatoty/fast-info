@@ -23,8 +23,13 @@ export function MegaMenuProducts({
 
   return (
     <div className="grid w-[640px] grid-cols-[1fr_1.15fr]">
+      {/* Fixed (not text-muted-foreground/bg-muted/border-border etc.): this
+          panel is always a light card (see site-header's Viewport override)
+          even while the header above it sits in its `.dark`-scoped blue
+          (unscrolled) state — theme-relative tokens here would otherwise
+          flip to dark-surface values and lose contrast against the white. */}
       <div className="p-6">
-        <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+        <p className="text-xs font-semibold tracking-wide text-surface-ink/60 uppercase">
           {copy.categoriesLabel}
         </p>
         <ul className="mt-3 flex flex-col gap-0.5">
@@ -35,9 +40,9 @@ export function MegaMenuProducts({
                 <NavigationMenu.Link asChild>
                   <Link
                     href={`/produits?categorie=${category.slug}`}
-                    className="group flex items-center gap-3 rounded-md px-2.5 py-2 text-sm text-foreground/90 transition-colors hover:bg-accent"
+                    className="group flex items-center gap-3 rounded-md px-2.5 py-2 text-sm text-surface-ink/90 transition-colors hover:bg-black/5"
                   >
-                    <Icon className="size-4 shrink-0 text-muted-foreground transition-colors group-hover:text-primary" />
+                    <Icon className="size-4 shrink-0 text-surface-ink/60 transition-colors group-hover:text-surface-blue" />
                     {category.name}
                   </Link>
                 </NavigationMenu.Link>
@@ -45,11 +50,11 @@ export function MegaMenuProducts({
             );
           })}
         </ul>
-        <div className="mt-3 border-t border-border pt-3">
+        <div className="mt-3 border-t border-black/10 pt-3">
           <NavigationMenu.Link asChild>
             <Link
               href="/produits"
-              className="group flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-primary"
+              className="group flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-surface-blue"
             >
               {copy.viewAll}
               <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -59,8 +64,8 @@ export function MegaMenuProducts({
       </div>
 
       {featuredProduct ? (
-        <div className="border-l border-border bg-muted/30 p-6">
-          <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+        <div className="border-l border-black/10 bg-gray-50 p-6">
+          <p className="text-xs font-semibold tracking-wide text-surface-ink/60 uppercase">
             {copy.featuredLabel}
           </p>
           <NavigationMenu.Link asChild>
@@ -71,11 +76,11 @@ export function MegaMenuProducts({
                 blurDataURL={featuredProduct.mainImage?.blurDataURL}
                 aspectRatio={4 / 3}
                 sizes="240px"
-                wrapperClassName="rounded-[8px]"
+                wrapperClassName="rounded-xl"
                 className="transition-transform duration-500 group-hover:scale-[1.04]"
               />
-              <p className="mt-3 font-heading text-base font-medium">{featuredProduct.name}</p>
-              <p className="mt-1 text-sm text-primary">
+              <p className="mt-3 font-heading text-base font-medium text-surface-ink">{featuredProduct.name}</p>
+              <p className="mt-1 text-sm text-surface-blue">
                 {formatCurrency(featuredProduct.promoPrice ?? featuredProduct.price)}
               </p>
             </Link>

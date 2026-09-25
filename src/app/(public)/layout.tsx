@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { MotionProvider } from "@/components/public/motion/motion-provider";
 import { SiteFooter } from "@/components/public/site-footer";
 import { SiteHeader } from "@/components/public/site-header";
 import { WhatsAppFab } from "@/components/public/whatsapp-fab";
@@ -34,7 +35,7 @@ export default async function PublicLayout({ children }: { children: ReactNode }
   };
 
   return (
-    <>
+    <MotionProvider>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
@@ -52,6 +53,6 @@ export default async function PublicLayout({ children }: { children: ReactNode }
       <main className="flex flex-1 flex-col [&>*:last-child]:flex-1">{children}</main>
       <SiteFooter settings={settings} />
       <WhatsAppFab whatsapp={settings.whatsapp} />
-    </>
+    </MotionProvider>
   );
 }

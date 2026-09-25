@@ -9,7 +9,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-poppins);
   --font-mono: ui-monospace, "SF Mono", Consolas, monospace;
-  --font-heading: var(--font-chakra-petch);
+  --font-heading: var(--font-outfit);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -52,52 +52,69 @@
   --color-surface-blue-border: var(--surface-blue-border);
   --color-surface-yellow: var(--surface-yellow);
   --color-surface-yellow-foreground: var(--surface-yellow-foreground);
+  --color-surface-sky: var(--surface-sky);
+  --color-surface-sky-foreground: var(--surface-sky-foreground);
+  --color-surface-orange: var(--surface-orange);
+  --color-surface-orange-foreground: var(--surface-orange-foreground);
+  --color-surface-pink: var(--surface-pink);
+  --color-surface-pink-foreground: var(--surface-pink-foreground);
+  --color-surface-ink: var(--surface-ink);
+  --color-surface-ink-foreground: var(--surface-ink-foreground);
 }
 
 :root {
-  --background: oklch(0.99 0.004 75);
-  --foreground: oklch(0.18 0.012 55);
-  --card: oklch(1 0.002 75);
-  --card-foreground: oklch(0.18 0.012 55);
-  --popover: oklch(1 0.002 75);
-  --popover-foreground: oklch(0.18 0.012 55);
-  --primary: oklch(0.64 0.19 228);
-  --primary-foreground: oklch(0.99 0.01 228);
-  --secondary: oklch(0.95 0.006 70);
-  --secondary-foreground: oklch(0.22 0.012 55);
-  --muted: oklch(0.95 0.006 70);
-  --muted-foreground: oklch(0.48 0.012 55);
-  --accent: oklch(0.93 0.035 228);
-  --accent-foreground: oklch(0.32 0.06 228);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.22 0.03 265);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.03 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.03 265);
+  --primary: oklch(0.58 0.19 250);
+  --primary-foreground: oklch(0.99 0.005 250);
+  --secondary: oklch(0.97 0.006 260);
+  --secondary-foreground: oklch(0.25 0.03 265);
+  --muted: oklch(0.97 0.006 260);
+  --muted-foreground: oklch(0.52 0.02 265);
+  --accent: oklch(0.93 0.03 250);
+  --accent-foreground: oklch(0.32 0.08 255);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.008 65);
-  --input: oklch(0.9 0.008 65);
-  --ring: oklch(0.64 0.19 228);
-  --chart-1: oklch(0.64 0.19 228);
-  --chart-2: oklch(0.556 0.02 55);
-  --chart-3: oklch(0.439 0.015 55);
-  --chart-4: oklch(0.72 0.1 228);
-  --chart-5: oklch(0.269 0.01 55);
+  --border: oklch(0.91 0.01 260);
+  --input: oklch(0.91 0.01 260);
+  --ring: oklch(0.58 0.19 250);
+  --chart-1: oklch(0.58 0.19 250);
+  --chart-2: oklch(0.556 0.02 260);
+  --chart-3: oklch(0.439 0.015 260);
+  --chart-4: oklch(0.72 0.1 250);
+  --chart-5: oklch(0.269 0.01 260);
   --radius: 0.375rem;
-  --sidebar: oklch(0.97 0.005 70);
-  --sidebar-foreground: oklch(0.22 0.012 55);
-  --sidebar-primary: oklch(0.64 0.19 228);
-  --sidebar-primary-foreground: oklch(0.99 0.01 228);
-  --sidebar-accent: oklch(0.93 0.035 228);
-  --sidebar-accent-foreground: oklch(0.32 0.06 228);
-  --sidebar-border: oklch(0.9 0.008 65);
-  --sidebar-ring: oklch(0.64 0.19 228);
+  --sidebar: oklch(0.97 0.005 260);
+  --sidebar-foreground: oklch(0.25 0.03 265);
+  --sidebar-primary: oklch(0.58 0.19 250);
+  --sidebar-primary-foreground: oklch(0.99 0.005 250);
+  --sidebar-accent: oklch(0.93 0.03 250);
+  --sidebar-accent-foreground: oklch(0.32 0.08 255);
+  --sidebar-border: oklch(0.91 0.01 260);
+  --sidebar-ring: oklch(0.58 0.19 250);
 
-  /* Marketing-only accent surfaces for the public site (redesign). Fixed —
-     the site has no dark mode, so these never need a .dark override. Same
-     hue (228) as --primary, just a deeper, richer shade for large flat
-     bands — same brand blue, not a second colour. */
-  --surface-blue: oklch(0.4 0.16 228);
-  --surface-blue-foreground: oklch(0.99 0.005 228);
-  --surface-blue-muted: oklch(0.82 0.05 228);
+  /* Marketing-only accent surfaces for the public site (Overpass-inspired
+     redesign). Fixed — the site has no dark mode, so these never need a
+     .dark override. Decorative blocks/blobs and pill-button fills only;
+     --surface-sky specifically never carries small text (fails AA on
+     white-on-sky and navy-on-sky alike at body-text sizes). */
+  --surface-sky: oklch(0.68 0.19 240);
+  --surface-sky-foreground: oklch(0.22 0.04 255);
+  --surface-blue: oklch(0.38 0.15 260);
+  --surface-blue-foreground: oklch(0.99 0.005 260);
+  --surface-blue-muted: oklch(0.78 0.06 260);
   --surface-blue-border: oklch(1 0 0 / 15%);
-  --surface-yellow: oklch(0.82 0.16 95);
-  --surface-yellow-foreground: oklch(0.2 0.04 85);
+  --surface-yellow: oklch(0.88 0.17 95);
+  --surface-yellow-foreground: oklch(0.25 0.05 85);
+  --surface-orange: oklch(0.78 0.15 55);
+  --surface-orange-foreground: oklch(0.26 0.06 40);
+  --surface-pink: oklch(0.85 0.08 10);
+  --surface-pink-foreground: oklch(0.3 0.05 10);
+  --surface-ink: oklch(0.2 0.03 260);
+  --surface-ink-foreground: oklch(0.98 0.005 260);
   --edge-depth: clamp(1.25rem, 4vw, 3.5rem);
 }
 
@@ -167,33 +184,27 @@
   .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
-  .reveal {
-    opacity: 0;
-    transform: translateY(12px);
-    transition:
-      opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: calc(var(--reveal-delay, 0) * 1ms);
-  }
-  .reveal-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-  }
-  /* Diagonal seam: cuts this section's own top-left corner away on a slant
+  /* Curved seam: rounds this section's own top-left corner into a wide arc
      and pulls it up over the previous section by the same amount. Because
      later siblings paint over earlier ones in normal flow, the previous
-     section's flat color shows through the clipped sliver — no z-index or
-     overlap trickery needed. Depth stays inside the section's own vertical
-     padding so content is never clipped. */
-  .diagonal-top {
+     section's flat color shows through the rounded-away sliver — no
+     z-index or overlap trickery needed. Depth stays inside the section's
+     own vertical padding so content is never clipped. */
+  .curve-top {
     margin-top: calc(var(--edge-depth) * -1);
-    clip-path: polygon(0 var(--edge-depth), 100% 0, 100% 100%, 0 100%);
+    border-top-left-radius: 70% var(--edge-depth);
+  }
+  /* Thick rule under each wrapped line of a heading — box-decoration-break
+     clones the background per line fragment instead of drawing one rule
+     under the whole (possibly multi-line) block. Apply to an inline
+     wrapper around the heading text, not the heading element itself. */
+  .title-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 3px;
+    padding-bottom: 0.04em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
 }

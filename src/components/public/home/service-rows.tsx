@@ -1,10 +1,12 @@
-import { ArrowRight } from "lucide-react";
+import { cn } from "cn";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
-import { Reveal } from "@/components/public/reveal";
+import { Eyebrow } from "@/components/public/eyebrow";
+import { AnimatedUnderline } from "@/components/public/motion/animated-underline";
+import { HoverLift } from "@/components/public/motion/hover-lift";
+import { Stagger, StaggerItem } from "@/components/public/motion/stagger";
 import { Section } from "@/components/public/section";
-import { SectionHeading } from "@/components/public/section-heading";
-import { SmartImage } from "@/components/media/smart-image";
 import { Button } from "@/components/ui/button";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { Service } from "@/types/domain";
@@ -14,46 +16,58 @@ export async function ServiceRows({ services }: { services: Service[] }) {
   const dict = await getDictionary();
 
   return (
-    <Section tone="blue" edge="top">
-      <SectionHeading
-        eyebrow={dict.home.services.eyebrow}
-        title={dict.home.services.title}
-        description={dict.home.services.description}
-        descriptionClassName="text-surface-blue-muted"
-      />
+    <Section>
+      {/* Matches the Overpass reference: the heading is the grid's own first
+          cell (not a separate header above it), tiles are flush against
+          each other with no gap, and their fill alternates gray/white —
+          that's what makes adjoining tiles read as one seamless surface. */}
+      <Stagger className="flex flex-wrap items-end">
+        <StaggerItem className="flex h-72 w-full flex-col justify-center p-6 sm:w-1/2 sm:p-7 lg:w-[40%]">
+          <Eyebrow>{dict.home.services.eyebrow}</Eyebrow>
+          <h2 className="font-heading text-[clamp(1.75rem,1.3rem+2vw,2.5rem)] leading-[1.1] font-normal tracking-tight">
+            <AnimatedUnderline>{dict.home.services.title}</AnimatedUnderline>
+          </h2>
+          <p className="mt-4 max-w-xs text-sm text-muted-foreground">{dict.home.services.description}</p>
+          <Button variant="outline" asChild className="my-6 w-fit rounded-full">
+            <Link href="/services">{dict.nav.megaMenu.services.viewAll}</Link>
+          </Button>
+        </StaggerItem>
 
-      <div className="mt-12 flex flex-col gap-16 lg:gap-20">
-        {services.map((service, index) => (
-          <Reveal
-            key={service.id}
-            className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16"
-          >
-            <div className={index % 2 === 1 ? "lg:order-2" : undefined}>
-              <SmartImage
-                src={service.coverImage?.url}
-                alt={service.coverImage?.alt ?? service.title}
-                blurDataURL={service.coverImage?.blurDataURL}
-                aspectRatio={16 / 10}
-                wrapperClassName="rounded-[8px]"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-              />
-            </div>
-            <div className={index % 2 === 1 ? "lg:order-1" : undefined}>
-              <span className="block h-px w-10 bg-primary" aria-hidden />
-              <h3 className="mt-4 font-heading text-2xl font-medium tracking-tight sm:text-3xl">
-                {service.title}
-              </h3>
-              <p className="mt-4 max-w-md text-surface-blue-muted">{service.description}</p>
-              <Button variant="link" asChild className="mt-4 gap-1.5 px-0">
-                <Link href={`/services/${service.slug}`}>
-                  {dict.home.services.cta}
-                  <ArrowRight className="size-4" />
+        {services.map((service, index) => {
+          const isGray = index % 2 === 0;
+          return (
+            <StaggerItem key={service.id} className="w-full sm:w-1/2 lg:w-[30%]">
+              <HoverLift className="h-full">
+                <Link
+                  href={`/services/${service.slug}`}
+                  className={cn(
+                    "group flex h-72 flex-col p-6 sm:p-7",
+                    isGray ? "bg-secondary" : "bg-background",
+                  )}
+                >
+                  <h3 className="max-w-48 font-heading text-xl font-light tracking-tight sm:text-2xl">
+                    {service.title}
+                  </h3>
+                  {/* Hidden until hover, in place of always-on body copy — keeps
+                      the tile's resting state as clean as the reference's
+                      title-plus-arrow tiles while still surfacing the detail. */}
+                  <p className="mt-3 max-w-52 translate-y-1 text-sm text-muted-foreground opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                    {service.shortDescription}
+                  </p>
+                  <span
+                    className={cn(
+                      "mt-auto flex size-11 items-center justify-center self-end rounded-full transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:translate-x-1",
+                      isGray ? "bg-background" : "bg-secondary",
+                    )}
+                  >
+                    <ArrowUpRight className="size-4" />
+                  </span>
                 </Link>
-              </Button>
-            </div>
-          </Reveal>
-        ))}
-      </div>
+              </HoverLift>
+            </StaggerItem>
+          );
+        })}
+      </Stagger>
     </Section>
   );
 }
