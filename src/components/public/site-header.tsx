@@ -20,16 +20,7 @@ import type { Product, ProductCategory, Service, SiteSettings } from "@/types/do
 
 // Shared so every trigger/link in the bar lines up pixel-for-pixel.
 const ITEM_CLASS =
-  "group relative flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 data-active:text-foreground data-open:text-foreground";
-
-function ItemUnderline() {
-  return (
-    <span
-      aria-hidden
-      className="absolute inset-x-3 -bottom-px h-px scale-x-0 bg-primary transition-transform duration-200 ease-out motion-reduce:transition-none group-hover:scale-x-100 group-data-active:scale-x-100"
-    />
-  );
-}
+  "group relative flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-medium text-muted-foreground outline-none transition-colors hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 data-active:bg-secondary data-active:text-foreground data-open:bg-secondary data-open:text-foreground";
 
 function NavLink({ href, label, active }: { href: string; label: string; active: boolean }) {
   return (
@@ -37,7 +28,6 @@ function NavLink({ href, label, active }: { href: string; label: string; active:
       <NavigationMenu.Link asChild active={active}>
         <Link href={href} className={ITEM_CLASS}>
           {label}
-          <ItemUnderline />
         </Link>
       </NavigationMenu.Link>
     </NavigationMenu.Item>
@@ -174,7 +164,6 @@ export function SiteHeader({
               >
                 {dict.nav.products}
                 <ChevronDown className="size-3.5 transition-transform duration-200 motion-reduce:transition-none group-data-open:rotate-180" />
-                <ItemUnderline />
               </NavigationMenu.Trigger>
               <NavigationMenu.Content className={MENU_CONTENT_CLASS}>
                 <MegaMenuProducts categories={categories} featuredProduct={featuredProduct} dict={dict} />
@@ -189,7 +178,6 @@ export function SiteHeader({
               >
                 {dict.nav.services}
                 <ChevronDown className="size-3.5 transition-transform duration-200 motion-reduce:transition-none group-data-open:rotate-180" />
-                <ItemUnderline />
               </NavigationMenu.Trigger>
               <NavigationMenu.Content className={MENU_CONTENT_CLASS}>
                 <MegaMenuServices services={services} featuredService={featuredService} dict={dict} />
@@ -206,7 +194,6 @@ export function SiteHeader({
               >
                 {dict.nav.gallery}
                 <ChevronDown className="size-3.5 transition-transform duration-200 motion-reduce:transition-none group-data-open:rotate-180" />
-                <ItemUnderline />
               </NavigationMenu.Trigger>
               <NavigationMenu.Content className={MENU_CONTENT_CLASS}>
                 <div className="w-72 p-2">
@@ -232,7 +219,7 @@ export function SiteHeader({
             <NavigationMenu.Viewport
               className={cn(
                 "relative h-(--radix-navigation-menu-viewport-height) w-(--radix-navigation-menu-viewport-width)",
-                "origin-top overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-xl ring-1 ring-foreground/5",
+                "origin-top overflow-hidden rounded-2xl border border-border bg-popover text-popover-foreground shadow-xl ring-1 ring-foreground/5",
                 "transition-[width,height,opacity] duration-250 ease-out motion-reduce:transition-none",
                 "data-open:animate-in data-open:fade-in-0",
                 "data-closed:animate-out data-closed:fade-out-0",
@@ -247,7 +234,7 @@ export function SiteHeader({
             href={`tel:${settings.phone.replace(/\s+/g, "")}`}
             className="hidden items-center gap-2 text-sm font-medium sm:flex"
           >
-            <Button variant="cta" size="sm" className="gap-2 rounded-[8px]">
+            <Button variant="sky" size="sm" className="gap-2 rounded-full">
               <Phone className="size-3.5" />
               {dict.common.call}
             </Button>
@@ -259,7 +246,7 @@ export function SiteHeader({
               <Button
                 variant="ghost"
                 size="icon"
-                className="relative rounded-[8px] lg:hidden"
+                className="relative rounded-full lg:hidden"
                 aria-label={dict.common.openMenu}
                 aria-expanded={mobileOpen}
               >

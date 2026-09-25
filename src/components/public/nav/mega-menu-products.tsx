@@ -71,7 +71,7 @@ export function MegaMenuProducts({
                 blurDataURL={featuredProduct.mainImage?.blurDataURL}
                 aspectRatio={4 / 3}
                 sizes="240px"
-                wrapperClassName="rounded-[8px]"
+                wrapperClassName="rounded-xl"
                 className="transition-transform duration-500 group-hover:scale-[1.04]"
               />
               <p className="mt-3 font-heading text-base font-medium">{featuredProduct.name}</p>

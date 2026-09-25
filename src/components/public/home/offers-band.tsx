@@ -1,7 +1,8 @@
 import Link from "next/link";
 
+import { Blob } from "@/components/public/motion/blob";
+import { Stagger, StaggerItem } from "@/components/public/motion/stagger";
 import { OfferCard } from "@/components/public/offer-card";
-import { Reveal } from "@/components/public/reveal";
 import { Section } from "@/components/public/section";
 import { SectionHeading } from "@/components/public/section-heading";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,9 @@ export async function OffersBand({ offers }: { offers: Offer[] }) {
   const dict = await getDictionary();
 
   return (
-    <Section tone="blue">
+    <Section tone="blue" edge="top" className="relative overflow-hidden">
+      <Blob color="sky" className="-top-32 -right-32 size-96 opacity-25" parallax={30} />
+
       <SectionHeading
         eyebrow={dict.home.offers.eyebrow}
         title={dict.home.offers.title}
@@ -23,20 +26,21 @@ export async function OffersBand({ offers }: { offers: Offer[] }) {
           <Button
             variant="outline"
             asChild
-            className="rounded-[8px] border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
+            className="rounded-full border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
           >
             <Link href="/offres">{dict.home.offers.cta}</Link>
           </Button>
         }
+        className="relative"
       />
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {offers.slice(0, 3).map((offer, index) => (
-          <Reveal key={offer.id} delay={index * 80}>
+      <Stagger className="relative mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {offers.slice(0, 3).map((offer) => (
+          <StaggerItem key={offer.id}>
             <OfferCard offer={offer} />
-          </Reveal>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
     </Section>
   );
 }

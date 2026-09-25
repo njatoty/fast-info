@@ -30,7 +30,7 @@ export default async function ServicesPage() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-3">
           {services.map((service, index) => (
             <Reveal key={service.id} delay={(index % 3) * 80}>
-              <ServiceCard service={service} />
+              <ServiceCard service={service} accentIndex={index} />
             </Reveal>
           ))}
         </div>

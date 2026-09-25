@@ -2,6 +2,7 @@ import { cn } from "cn";
 import type { ReactNode } from "react";
 
 import { Eyebrow } from "@/components/public/eyebrow";
+import { AnimatedUnderline } from "@/components/public/motion/animated-underline";
 import { Reveal } from "@/components/public/reveal";
 
 interface SectionHeadingProps {
@@ -35,8 +36,8 @@ export function SectionHeading({
     >
       <div className={cn("max-w-2xl", align === "center" && "mx-auto")}>
         {eyebrow ? <Eyebrow align={align}>{eyebrow}</Eyebrow> : null}
-        <h2 className="text-balance font-heading text-[clamp(2rem,1.3rem+3.2vw,4rem)] leading-[1.02] font-semibold tracking-tight">
-          {title}
+        <h2 className="text-balance font-heading text-[clamp(2rem,1.3rem+3.2vw,4rem)] leading-[1.15] font-normal tracking-tight">
+          <AnimatedUnderline>{title}</AnimatedUnderline>
         </h2>
         {description ? (
           <p

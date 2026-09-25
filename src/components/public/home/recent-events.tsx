@@ -1,7 +1,8 @@
 import Link from "next/link";
 
 import { EventCard } from "@/components/public/event-card";
-import { Reveal } from "@/components/public/reveal";
+import { HoverLift } from "@/components/public/motion/hover-lift";
+import { Stagger, StaggerItem } from "@/components/public/motion/stagger";
 import { Section } from "@/components/public/section";
 import { SectionHeading } from "@/components/public/section-heading";
 import { Button } from "@/components/ui/button";
@@ -13,24 +14,26 @@ export async function RecentEvents({ events }: { events: EventProject[] }) {
   const dict = await getDictionary();
 
   return (
-    <Section>
+    <Section edge="top">
       <SectionHeading
         eyebrow={dict.home.events.eyebrow}
         title={dict.home.events.title}
         action={
-          <Button variant="outline" asChild className="rounded-[8px]">
+          <Button variant="outline" asChild className="rounded-full">
             <Link href="/evenements">{dict.home.events.cta}</Link>
           </Button>
         }
       />
 
-      <div className="mt-10 grid grid-cols-2 gap-6 lg:grid-cols-4">
-        {events.slice(0, 4).map((event, index) => (
-          <Reveal key={event.id} delay={index * 80}>
-            <EventCard event={event} />
-          </Reveal>
+      <Stagger className="mt-10 grid grid-cols-2 gap-6 lg:grid-cols-4">
+        {events.slice(0, 4).map((event) => (
+          <StaggerItem key={event.id}>
+            <HoverLift>
+              <EventCard event={event} />
+            </HoverLift>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
     </Section>
   );
 }
