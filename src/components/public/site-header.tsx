@@ -249,7 +249,11 @@ export function SiteHeader({
             href={`tel:${settings.phone.replace(/\s+/g, "")}`}
             className="hidden items-center gap-2 text-sm font-medium sm:flex"
           >
-            <Button variant="sky" size="sm" className="gap-2 rounded-full">
+            <Button
+              variant="sky"
+              size="sm"
+              className="gap-2 rounded-full bg-green-600 text-white hover:bg-green-700"
+            >
               <Phone className="size-3.5" />
               {dict.common.call}
             </Button>
