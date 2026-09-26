@@ -32,7 +32,7 @@ export async function Hero({ settings }: { settings: SiteSettings }) {
   return (
     <Section
       tone="blue"
-      className="pt-8 pb-16 sm:pt-14 sm:pb-24 lg:pt-16 lg:pb-24"
+      className="flex min-h-screen items-center"
       containerClassName="grid items-center gap-12 lg:grid-cols-12 lg:gap-10"
     >
       <div className="lg:col-span-5">
