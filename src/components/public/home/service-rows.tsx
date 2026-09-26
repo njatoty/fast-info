@@ -7,7 +7,7 @@ import { AnimatedUnderline } from "@/components/public/motion/animated-underline
 import { HoverLift } from "@/components/public/motion/hover-lift";
 import { Stagger, StaggerItem } from "@/components/public/motion/stagger";
 import { Section } from "@/components/public/section";
-import { Button } from "@/components/ui/button";
+import { ViewAllLink } from "@/components/public/view-all-link";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { Service } from "@/types/domain";
 
@@ -28,9 +28,9 @@ export async function ServiceRows({ services }: { services: Service[] }) {
             <AnimatedUnderline>{dict.home.services.title}</AnimatedUnderline>
           </h2>
           <p className="mt-4 max-w-xs text-sm text-muted-foreground">{dict.home.services.description}</p>
-          <Button variant="outline" asChild className="my-6 w-fit rounded-full">
-            <Link href="/services">{dict.nav.megaMenu.services.viewAll}</Link>
-          </Button>
+          <ViewAllLink href="/services" className="my-6">
+            {dict.nav.megaMenu.services.viewAll}
+          </ViewAllLink>
         </StaggerItem>
 
         {services.map((service, index) => {

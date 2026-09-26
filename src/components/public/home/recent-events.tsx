@@ -1,11 +1,9 @@
-import Link from "next/link";
-
 import { EventCard } from "@/components/public/event-card";
 import { HoverLift } from "@/components/public/motion/hover-lift";
 import { Stagger, StaggerItem } from "@/components/public/motion/stagger";
 import { Section } from "@/components/public/section";
 import { SectionHeading } from "@/components/public/section-heading";
-import { Button } from "@/components/ui/button";
+import { ViewAllLink } from "@/components/public/view-all-link";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { EventProject } from "@/types/domain";
 
@@ -18,11 +16,7 @@ export async function RecentEvents({ events }: { events: EventProject[] }) {
       <SectionHeading
         eyebrow={dict.home.events.eyebrow}
         title={dict.home.events.title}
-        action={
-          <Button variant="outline" asChild className="rounded-full">
-            <Link href="/evenements">{dict.home.events.cta}</Link>
-          </Button>
-        }
+        action={<ViewAllLink href="/evenements">{dict.home.events.cta}</ViewAllLink>}
       />
 
       <Stagger className="mt-10 grid grid-cols-2 gap-6 lg:grid-cols-4">

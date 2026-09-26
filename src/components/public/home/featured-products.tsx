@@ -1,11 +1,9 @@
-import Link from "next/link";
-
 import { Blob } from "@/components/public/motion/blob";
 import { Stagger, StaggerItem } from "@/components/public/motion/stagger";
 import { ProductCard } from "@/components/public/product-card";
 import { Section } from "@/components/public/section";
 import { SectionHeading } from "@/components/public/section-heading";
-import { Button } from "@/components/ui/button";
+import { ViewAllLink } from "@/components/public/view-all-link";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { Product } from "@/types/domain";
 
@@ -20,11 +18,7 @@ export async function FeaturedProducts({ products }: { products: Product[] }) {
         eyebrow={dict.home.featuredProducts.eyebrow}
         title={dict.home.featuredProducts.title}
         description={dict.home.featuredProducts.description}
-        action={
-          <Button variant="outline" asChild className="rounded-full">
-            <Link href="/produits">{dict.home.featuredProducts.cta}</Link>
-          </Button>
-        }
+        action={<ViewAllLink href="/produits">{dict.home.featuredProducts.cta}</ViewAllLink>}
       />
 
       <Stagger className="mt-10 grid items-start gap-6 lg:grid-cols-2 lg:gap-8">
