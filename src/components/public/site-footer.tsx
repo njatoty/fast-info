@@ -114,11 +114,10 @@ export async function SiteFooter({ settings }: { settings: SiteSettings }) {
       </Container>
 
       <div className="relative border-t border-surface-blue-border py-6">
-        <Container className="flex flex-col items-center justify-between gap-2 text-xs text-surface-blue-muted sm:flex-row">
+        <Container className="text-center text-xs text-surface-blue-muted">
           <p>
             © {new Date().getFullYear()} FastInfo. {dict.footer.rights}
           </p>
-          <p>Antananarivo, Madagascar</p>
         </Container>
       </div>
     </footer>

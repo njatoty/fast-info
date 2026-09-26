@@ -89,7 +89,7 @@ export async function LocationStrip({ settings }: { settings: SiteSettings }) {
         <Reveal delay={120} className="relative">
           <Blob color="yellow" className="-top-6 -right-6 size-32 sm:size-40" />
           <Blob color="orange" className="-bottom-8 -left-8 size-28 sm:size-36" delay={100} />
-          <div className="relative min-h-64 overflow-hidden rounded-2xl border border-border shadow-lg">
+          <div className="relative min-h-64 overflow-hidden rounded-2xl border-4 border-white">
             <iframe
               src={mapEmbedSrc}
               title={t(dict.home.location.titleTemplate, { city: settings.city.split(",")[0] })}

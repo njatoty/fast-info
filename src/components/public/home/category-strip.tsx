@@ -6,7 +6,11 @@ import { getCategoryIcon } from "@/lib/icons";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { ProductCategory } from "@/types/domain";
 
-const PILL_COLORS = ["bg-surface-sky", "bg-surface-yellow", "bg-surface-orange", "bg-surface-pink"];
+const PILL_COLORS = ["text-surface-sky", "text-surface-yellow", "text-surface-orange", "text-surface-pink"];
+
+// Left and right edges cut at the same slant so the fill reads as a
+// parallelogram card instead of a rounded pill.
+const ITEM_CLIP = "[clip-path:polygon(14px_0,100%_0,calc(100%_-_14px)_100%,0_100%)]";
 
 export async function CategoryStrip({ categories }: { categories: ProductCategory[] }) {
   const dict = await getDictionary();
@@ -24,16 +28,16 @@ export async function CategoryStrip({ categories }: { categories: ProductCategor
   ];
 
   return (
-    <Stagger className="relative border-y border-border">
-      <div className="scrollbar-none flex gap-3 overflow-x-auto px-4 py-5 sm:px-6 lg:justify-center lg:px-8">
+    <Stagger className="relative bg-muted">
+      <div className="scrollbar-none flex overflow-x-auto px-4 py-1 sm:px-6 lg:justify-center lg:px-8">
         {allLinks.map((link, index) => (
-          <StaggerItem key={link.key} className="shrink-0">
+          <StaggerItem key={link.key} className={`shrink-0 ${index === 0 ? "" : "-ml-2.5"}`}>
             <Link
               href={link.href}
-              className="group flex items-center gap-2.5 rounded-full border border-border bg-background py-2 pr-4 pl-2 text-sm font-medium text-muted-foreground shadow-sm transition-colors hover:border-primary hover:text-foreground"
+              className={`group relative flex items-center gap-2.5 bg-white py-2.5 pr-6 pl-5 text-sm font-medium text-muted-foreground transition-colors duration-300 hover:z-10 hover:bg-surface-ink hover:text-surface-ink-foreground focus-visible:z-10 ${ITEM_CLIP}`}
             >
               <span
-                className={`flex size-7 shrink-0 items-center justify-center rounded-full text-surface-ink transition-transform group-hover:scale-110 ${PILL_COLORS[index % PILL_COLORS.length]}`}
+                className={`flex size-7 shrink-0 items-center justify-center rounded-lg text-surface-ink transition-transform duration-300 group-hover:scale-110 ${PILL_COLORS[index % PILL_COLORS.length]}`}
               >
                 <link.icon className="size-3.5" />
               </span>

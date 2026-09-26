@@ -1,11 +1,9 @@
-import Link from "next/link";
-
 import { Blob } from "@/components/public/motion/blob";
 import { Stagger, StaggerItem } from "@/components/public/motion/stagger";
 import { OfferCard } from "@/components/public/offer-card";
 import { Section } from "@/components/public/section";
 import { SectionHeading } from "@/components/public/section-heading";
-import { Button } from "@/components/ui/button";
+import { ViewAllLink } from "@/components/public/view-all-link";
 import { getDictionary } from "@/lib/i18n/get-dictionary";
 import type { Offer } from "@/types/domain";
 
@@ -22,15 +20,7 @@ export async function OffersBand({ offers }: { offers: Offer[] }) {
         title={dict.home.offers.title}
         description={dict.home.offers.description}
         descriptionClassName="text-surface-blue-muted"
-        action={
-          <Button
-            variant="outline"
-            asChild
-            className="rounded-full border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
-          >
-            <Link href="/offres">{dict.home.offers.cta}</Link>
-          </Button>
-        }
+        action={<ViewAllLink href="/offres">{dict.home.offers.cta}</ViewAllLink>}
         className="relative"
       />
 
