@@ -341,11 +341,11 @@ values (gen_random_uuid(), (select id from public.gallery_categories where slug 
 -- events
 with evt as (
   insert into public.events (id, title, slug, category, event_date, end_date, location, description, is_published, position)
-  values (gen_random_uuid(), 'Mariage — Antananarivo', 'mariage-antananarivo-mars-2026', 'Mariage', '2026-03-14', null, 'Antananarivo', 'Une cérémonie intime suivie d''une réception en soirée, couverte en intégralité par notre équipe : préparatifs, échange des vœux et premiers instants de fête.', true, 0)
+  values (gen_random_uuid(), 'Mariage — Ambatolampy', 'mariage-ambatolampy-mars-2026', 'Mariage', '2026-03-14', null, 'Ambatolampy', 'Une cérémonie intime suivie d''une réception en soirée, couverte en intégralité par notre équipe : préparatifs, échange des vœux et premiers instants de fête.', true, 0)
   returning id
 )
 insert into public.event_images (event_id, path, alt, width, height, is_cover, position)
-  select id, 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&h=1500&q=80', 'Cérémonie de mariage à Antananarivo', 1200, 1500, true, 0 from evt
+  select id, 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&h=1500&q=80', 'Cérémonie de mariage à Ambatolampy', 1200, 1500, true, 0 from evt
   union all
   select id, 'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&h=1200&q=80', 'Alliances échangées', 1200, 1200, false, 1 from evt
   union all
@@ -356,7 +356,7 @@ insert into public.event_images (event_id, path, alt, width, height, is_cover, p
   select id, 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&h=1500&q=80', 'Instant capturé pendant la réception', 1200, 1500, false, 4 from evt;
 with evt as (
   insert into public.events (id, title, slug, category, event_date, end_date, location, description, is_published, position)
-  values (gen_random_uuid(), 'Anniversaire 30 ans — Ambohipo', 'anniversaire-30-ans-ambohipo', 'Anniversaire', '2026-05-02', null, 'Ambohipo, Antananarivo', 'Une fête familiale chaleureuse célébrant un 30ème anniversaire, en petit comité.', true, 0)
+  values (gen_random_uuid(), 'Anniversaire 30 ans — Ambohipo', 'anniversaire-30-ans-ambohipo', 'Anniversaire', '2026-05-02', null, 'Ambohipo, Ambatolampy', 'Une fête familiale chaleureuse célébrant un 30ème anniversaire, en petit comité.', true, 0)
   returning id
 )
 insert into public.event_images (event_id, path, alt, width, height, is_cover, position)
@@ -369,7 +369,7 @@ insert into public.event_images (event_id, path, alt, width, height, is_cover, p
   select id, 'https://images.unsplash.com/photo-1587440871875-191322ee64b0?auto=format&fit=crop&w=1600&h=1067&q=80', 'Groupe réuni pour l''occasion', 1600, 1067, false, 3 from evt;
 with evt as (
   insert into public.events (id, title, slug, category, event_date, end_date, location, description, is_published, position)
-  values (gen_random_uuid(), 'Séminaire entreprise TechCorp', 'seminaire-entreprise-techcorp', 'Événement d''entreprise', '2026-06-18', '2026-06-19', 'Ivato, Antananarivo', 'Deux journées de conférences et d''ateliers pour les équipes de TechCorp, avec couverture photo des interventions et des temps d''échange.', true, 0)
+  values (gen_random_uuid(), 'Séminaire entreprise TechCorp', 'seminaire-entreprise-techcorp', 'Événement d''entreprise', '2026-06-18', '2026-06-19', 'Ivato, Ambatolampy', 'Deux journées de conférences et d''ateliers pour les équipes de TechCorp, avec couverture photo des interventions et des temps d''échange.', true, 0)
   returning id
 )
 insert into public.event_images (event_id, path, alt, width, height, is_cover, position)
@@ -395,7 +395,7 @@ insert into public.event_images (event_id, path, alt, width, height, is_cover, p
   select id, 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1200&h=1500&q=80', 'Portrait des mariés', 1200, 1500, false, 3 from evt;
 with evt as (
   insert into public.events (id, title, slug, category, event_date, end_date, location, description, is_published, position)
-  values (gen_random_uuid(), 'Baptême & fête de famille', 'bapteme-fete-de-famille', 'Anniversaire', '2026-01-25', null, 'Antananarivo', 'Une célébration familiale mêlant cérémonie de baptême et repas de fête.', true, 0)
+  values (gen_random_uuid(), 'Baptême & fête de famille', 'bapteme-fete-de-famille', 'Anniversaire', '2026-01-25', null, 'Ambatolampy', 'Une célébration familiale mêlant cérémonie de baptême et repas de fête.', true, 0)
   returning id
 )
 insert into public.event_images (event_id, path, alt, width, height, is_cover, position)
@@ -409,7 +409,7 @@ insert into public.event_images (event_id, path, alt, width, height, is_cover, p
 
 -- site_settings
 insert into public.site_settings (id, phone, whatsapp, email, address, city, opening_hours, socials, hero_title, hero_subtitle, map_url, hero_images)
-values (1, '+261 34 12 345 67', '+261 34 12 345 67', 'contact@fastinfo.mg', 'Lot II M 45, Analakely', 'Antananarivo, Madagascar', '[{"day":"Lundi – Vendredi","hours":"08h00 – 18h00"},{"day":"Samedi","hours":"08h30 – 16h00"},{"day":"Dimanche","hours":"Fermé"}]'::jsonb, '[{"platform":"facebook","url":"https://facebook.com/fastinfo.mg"},{"platform":"instagram","url":"https://instagram.com/fastinfo.mg"},{"platform":"tiktok","url":"https://tiktok.com/@fastinfo.mg"}]'::jsonb, 'La technologie, les services et la créativité, réunis.', 'Téléphones, accessoires, impression et photographie d''événements : tout ce dont vous avez besoin, au même endroit à Antananarivo.', 'https://maps.google.com/?q=Analakely+Antananarivo', '[{"url":"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&h=1280&q=80","alt":"Circuit imprimé en gros plan","width":1600,"height":1280},{"url":"https://images.unsplash.com/photo-1721333089073-215a56fd710c?auto=format&fit=crop&w=1600&h=1280&q=80","alt":"Ordinateur portable en cours de réparation","width":1600,"height":1280},{"url":"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1600&h=1280&q=80","alt":"Matériel de prise de vue photographique","width":1600,"height":1280}]'::jsonb)
+values (1, '038 06 185 03', '038 06 185 03', 'contact@fastinfo.mg', 'Bemasoandro Est, Ambatolampy', 'Ambatolampy, Madagascar', '[{"day":"Lundi – Vendredi","hours":"08h00 – 18h00"},{"day":"Samedi","hours":"08h30 – 16h00"},{"day":"Dimanche","hours":"Fermé"}]'::jsonb, '[{"platform":"facebook","url":"https://facebook.com/fastinfo.mg"},{"platform":"instagram","url":"https://instagram.com/fastinfo.mg"},{"platform":"tiktok","url":"https://tiktok.com/@fastinfo.mg"}]'::jsonb, 'La technologie, les services et la créativité, réunis.', 'Téléphones, accessoires, impression et photographie d''événements : tout ce dont vous avez besoin, au même endroit à Ambatolampy.', 'https://maps.google.com/?q=Bemasoandro+Est+Ambatolampy', '[{"url":"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&h=1280&q=80","alt":"Circuit imprimé en gros plan","width":1600,"height":1280},{"url":"https://images.unsplash.com/photo-1721333089073-215a56fd710c?auto=format&fit=crop&w=1600&h=1280&q=80","alt":"Ordinateur portable en cours de réparation","width":1600,"height":1280},{"url":"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=1600&h=1280&q=80","alt":"Matériel de prise de vue photographique","width":1600,"height":1280}]'::jsonb)
 on conflict (id) do update set
   phone = excluded.phone, whatsapp = excluded.whatsapp, email = excluded.email,
   address = excluded.address, city = excluded.city, opening_hours = excluded.opening_hours,

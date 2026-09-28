@@ -479,17 +479,17 @@ export const demoGalleryItems: GalleryItem[] = galleryFixtures.map((f, index) =>
 export const demoEvents: EventProject[] = [
   {
     id: "event-mariage-tana",
-    title: "Mariage — Antananarivo",
-    slug: "mariage-antananarivo-mars-2026",
+    title: "Mariage — Ambatolampy",
+    slug: "mariage-ambatolampy-mars-2026",
     category: "Mariage",
     date: "2026-03-14",
     endDate: null,
-    location: "Antananarivo",
+    location: "Ambatolampy",
     description:
       "Une cérémonie intime suivie d'une réception en soirée, couverte en intégralité par notre équipe : préparatifs, échange des vœux et premiers instants de fête.",
-    coverImage: img("weddingCouple", 1600, 1067, "Mariage à Antananarivo", 0),
+    coverImage: img("weddingCouple", 1600, 1067, "Mariage à Ambatolampy", 0),
     gallery: [
-      img("weddingOne", 1200, 1500, "Cérémonie de mariage à Antananarivo", 0),
+      img("weddingOne", 1200, 1500, "Cérémonie de mariage à Ambatolampy", 0),
       img("weddingRings", 1200, 1200, "Alliances échangées", 1),
       img("weddingThree", 1200, 1600, "Portrait des mariés", 2),
       img("weddingFour", 1600, 1067, "Réception de mariage", 3),
@@ -504,7 +504,7 @@ export const demoEvents: EventProject[] = [
     category: "Anniversaire",
     date: "2026-05-02",
     endDate: null,
-    location: "Ambohipo, Antananarivo",
+    location: "Ambohipo, Ambatolampy",
     description: "Une fête familiale chaleureuse célébrant un 30ème anniversaire, en petit comité.",
     coverImage: img("eventBirthday", 1600, 1067, "Fête d'anniversaire à Ambohipo", 0),
     gallery: [
@@ -522,7 +522,7 @@ export const demoEvents: EventProject[] = [
     category: "Événement d'entreprise",
     date: "2026-06-18",
     endDate: "2026-06-19",
-    location: "Ivato, Antananarivo",
+    location: "Ivato, Ambatolampy",
     description:
       "Deux journées de conférences et d'ateliers pour les équipes de TechCorp, avec couverture photo des interventions et des temps d'échange.",
     coverImage: img("meetingRoom", 1600, 1067, "Séminaire d'entreprise à Ivato", 0),
@@ -559,7 +559,7 @@ export const demoEvents: EventProject[] = [
     category: "Anniversaire",
     date: "2026-01-25",
     endDate: null,
-    location: "Antananarivo",
+    location: "Ambatolampy",
     description: "Une célébration familiale mêlant cérémonie de baptême et repas de fête.",
     coverImage: img("eventSix", 1200, 1500, "Fête familiale de baptême", 0),
     gallery: [
@@ -576,11 +576,11 @@ export const demoEvents: EventProject[] = [
 // Site settings
 // ---------------------------------------------------------------------------
 export const demoSiteSettings: SiteSettings = {
-  phone: "+261 34 12 345 67",
-  whatsapp: "+261 34 12 345 67",
+  phone: "038 06 185 03",
+  whatsapp: "038 06 185 03",
   email: "contact@fastinfo.mg",
-  address: "Lot II M 45, Analakely",
-  city: "Antananarivo, Madagascar",
+  address: "Bemasoandro Est, Ambatolampy",
+  city: "Ambatolampy, Madagascar",
   openingHours: [
     { day: "Lundi – Vendredi", hours: "08h00 – 18h00" },
     { day: "Samedi", hours: "08h30 – 16h00" },
@@ -593,7 +593,7 @@ export const demoSiteSettings: SiteSettings = {
   ],
   heroTitle: "La technologie, les services et la créativité, réunis.",
   heroSubtitle:
-    "Téléphones, accessoires, impression et photographie d'événements : tout ce dont vous avez besoin, au même endroit à Antananarivo.",
+    "Téléphones, accessoires, impression et photographie d'événements : tout ce dont vous avez besoin, au même endroit à Ambatolampy.",
   heroImages: [
     img("techHeroCircuit", 1600, 1280, "Circuit imprimé en gros plan", 0),
     img("laptopRepair", 1600, 1280, "Ordinateur portable en cours de réparation", 1),

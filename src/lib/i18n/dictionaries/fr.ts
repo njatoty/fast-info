@@ -50,12 +50,12 @@ export const fr = {
     products: {
       title: "Produits",
       description:
-        "Téléphones, accessoires, écrans, stockage, audio et informatique — le catalogue FastInfo à Antananarivo.",
+        "Téléphones, accessoires, écrans, stockage, audio et informatique — le catalogue FastInfo à Ambatolampy.",
     },
     services: {
       title: "Services",
       description:
-        "Photocopie, impression, saisie de documents et photographie d'événements — les services FastInfo à Antananarivo.",
+        "Photocopie, impression, saisie de documents et photographie d'événements — les services FastInfo à Ambatolampy.",
     },
     offers: {
       title: "Offres",
@@ -72,7 +72,7 @@ export const fr = {
     },
     about: {
       title: "À propos",
-      description: "L'histoire, la mission et l'équipe de FastInfo à Antananarivo.",
+      description: "L'histoire, la mission et l'équipe de FastInfo à Ambatolampy.",
     },
     contact: {
       title: "Contact",
@@ -81,7 +81,7 @@ export const fr = {
   },
   home: {
     hero: {
-      eyebrow: "Antananarivo · Téléphonie, informatique & photographie",
+      eyebrow: "Ambatolampy · Téléphonie, informatique & photographie",
       ctaProducts: "Découvrir les produits",
       ctaContact: "Nous contacter",
       imageAlt1: "Univers technologique FastInfo",
@@ -213,7 +213,7 @@ export const fr = {
       },
       {
         title: "Confiance locale",
-        description: "Une entreprise ancrée à Antananarivo, au service de sa communauté.",
+        description: "Une entreprise ancrée à Ambatolampy, au service de sa communauté.",
       },
     ],
     whyTitle: "Pourquoi choisir FastInfo ?",

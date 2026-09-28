@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: [
     "FastInfo",
-    "Antananarivo",
+    "Ambatolampy",
     "téléphonie",
     "informatique",
     "accessoires téléphone",

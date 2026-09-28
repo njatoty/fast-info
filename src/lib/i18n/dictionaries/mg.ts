@@ -55,12 +55,12 @@ export const mg: Dictionary = {
     products: {
       title: "Vokatra",
       description:
-        "Finday, accessoires, écrans, stockage, audio ary informatika — ny catalogue an'ny FastInfo any Antananarivo.",
+        "Finday, accessoires, écrans, stockage, audio ary informatika — ny catalogue an'ny FastInfo any Ambatolampy.",
     },
     services: {
       title: "Serivisy",
       description:
-        "Fanontana, fanaovana kopia, fanoratana antontan-taratasy ary fakan-tsary hetsika — ny serivisin'ny FastInfo any Antananarivo.",
+        "Fanontana, fanaovana kopia, fanoratana antontan-taratasy ary fakan-tsary hetsika — ny serivisin'ny FastInfo any Ambatolampy.",
     },
     offers: {
       title: "Tolotra",
@@ -77,7 +77,7 @@ export const mg: Dictionary = {
     },
     about: {
       title: "Momba anay",
-      description: "Ny tantara, ny tanjona ary ny ekipan'ny FastInfo any Antananarivo.",
+      description: "Ny tantara, ny tanjona ary ny ekipan'ny FastInfo any Ambatolampy.",
     },
     contact: {
       title: "Contact",
@@ -86,7 +86,7 @@ export const mg: Dictionary = {
   },
   home: {
     hero: {
-      eyebrow: "Antananarivo · Finday, informatika ary fakan-tsary",
+      eyebrow: "Ambatolampy · Finday, informatika ary fakan-tsary",
       ctaProducts: "Jereo ny vokatra",
       ctaContact: "Mifandraisa aminay",
       imageAlt1: "Ny tontolon'ny teknolojia ao amin'ny FastInfo",
@@ -213,7 +213,7 @@ export const mg: Dictionary = {
       },
       {
         title: "Fitokiana eto an-toerana",
-        description: "Orinasa miorina tsara any Antananarivo, ka manompo ny fiaraha-monina eo aminy.",
+        description: "Orinasa miorina tsara any Ambatolampy, ka manompo ny fiaraha-monina eo aminy.",
       },
     ],
     whyTitle: "Nahoana no FastInfo ?",
