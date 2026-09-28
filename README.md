@@ -1,7 +1,7 @@
 # FastInfo
 
 Public website and admin dashboard for FastInfo, a technology retail, printing/typing, and event
-photography business in Antananarivo, Madagascar.
+photography business in Ambatolampy, Madagascar.
 
 Stack: Next.js (App Router) · TypeScript · Tailwind CSS v4 · shadcn/ui · Supabase (Postgres, Auth,
 Storage) · React Hook Form · Zod.
